@@ -19,7 +19,13 @@ RUN install2.r --error --skipinstalled \
     dplyr \ 
     RColorBrewer \ 
     scales \
-    scatterpie
+    scatterpie \
+    maps \
+    mapdata \ 
+    mapplots \ 
+    ggthemes \ 
+    ggnewscale \ 
+    sf
 
 # Sets the working directory to the shiny-server root folder
 WORKDIR /srv/shiny-server

@@ -26,6 +26,8 @@ RUN R -e "install.packages(c('RColorBrewer', 'scatterpie'), repos = 'http://cran
 
 RUN R -e "install.packages(c('scales'), repos = 'http://cran.r-project.org')"
 
+RUN R -e "install.packages(c('maps', 'mapdata', 'mapplots', 'ggthemes', 'ggnewscale', 'sf'), repos = 'http://cran.r-project.org')"
+
 # Sets the working directory to the shiny-server root folder
 WORKDIR /srv/shiny-server
 
