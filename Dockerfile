@@ -17,7 +17,8 @@ RUN install2.r --error --skipinstalled \
 
 RUN install2.r --error --skipinstalled \
     dplyr \ 
-    RColorBrewer
+    RColorBrewer \ 
+    scatterpie
 
 # Sets the working directory to the shiny-server root folder
 WORKDIR /srv/shiny-server
