@@ -17,7 +17,7 @@ server = function(input, output, session) {
     )
   
   observeEvent(input$resetFilters, { session$reload() })
-  
+
   default_filter_data = function(data, input = EMPTY_FILTER) {
     INFO(paste0("Years          : ", paste0(input$years,         collapse = "-")))
     INFO(paste0("Species        : ", paste0(input$species,       collapse = ", ")))
@@ -144,6 +144,10 @@ server = function(input, output, session) {
     
     return(filtered_data)
   }
+
+  observe({ 
+    filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+  })
   
   output$bySpecies = 
     renderPlot({
