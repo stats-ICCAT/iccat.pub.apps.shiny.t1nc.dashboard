@@ -13,9 +13,7 @@ RUN install2.r --error --skipinstalled \
     shinyWidgets \
     shinycssloaders \
     DT \
-    devtools
-
-RUN install2.r --error --skipinstalled \
+    devtools \
     dplyr \ 
     RColorBrewer \ 
     scales \

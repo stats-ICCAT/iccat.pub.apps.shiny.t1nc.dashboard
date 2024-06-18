@@ -16,7 +16,8 @@ RUN apt-get -y install libgit2-dev
 RUN apt-get -y install libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
 # Missing dependency for sf
-RUN apt-get -y install libudunits2-dev
+RUN apt-get -y install libudunits2-dev 
+RUN apt-get -y install libgdal-dev
 
 WORKDIR /
 

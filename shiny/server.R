@@ -19,6 +19,7 @@ server = function(input, output, session) {
   observeEvent(input$resetFilters, { session$reload() })
 
   default_filter_data = function(data, input = EMPTY_FILTER) {
+    INFO("### Performing search")
     INFO(paste0("Years          : ", paste0(input$years,         collapse = "-")))
     INFO(paste0("Species        : ", paste0(input$species,       collapse = ", ")))
     INFO(paste0("Flags          : ", paste0(input$flags,         collapse = ", ")))
@@ -109,8 +110,16 @@ server = function(input, output, session) {
     INFO(paste0("Filtering data: ", end - start))
     
     INFO(paste0("Filtered data size: ", nrow(filtered)))
+    INFO("")
     
-    return(filtered[, .(YearC = YEAR, FlagName = FLAG_NAME_EN, Stock = STOCK_AREA_CODE, Species = SPECIES_CODE, GearGrp = GEAR_GROUP_CODE, CatchTypeCode = CATCH_TYPE_CODE, Qty_t = CATCH)])
+    return(filtered[, .(YearC = YEAR, 
+                        FlagName = FLAG_NAME_EN, 
+                        Stock = STOCK_AREA_CODE, 
+                        SampAreaCode = SAMPLING_AREA_CODE,
+                        Species = SPECIES_CODE, 
+                        GearGrp = GEAR_GROUP_CODE, 
+                        CatchTypeCode = CATCH_TYPE_CODE, 
+                        Qty_t = CATCH)])
   }
   
   filter_nc_data = reactive({
@@ -170,7 +179,8 @@ server = function(input, output, session) {
             guide_legend(
               title = "Species"
             )
-        )
+        ) + 
+        labs(title = "Annual catches by species")
       }
     })
     
@@ -191,29 +201,14 @@ server = function(input, output, session) {
           colors = SPECIES_COLORS,
           relative = TRUE
         ) + 
-          guides(
-            fill =
-              guide_legend(
-                title = "Species"
-              )
-          )
+        guides(
+          fill =
+            guide_legend(
+              title = "Species"
+            )
+        ) + 
+        labs(title = "Annual catches by species")
       }
-    })
-    
-  output$byStock = 
-    renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data)
-    })
-  
-  output$byStockRel = 
-    renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data, relative = TRUE)
     })
   
   output$byCatchType = 
@@ -221,7 +216,8 @@ server = function(input, output, session) {
       t1nc_data = filter_nc_data()
       
       if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data)
+        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data) + 
+        labs(title = "Annual catches by type")
     })
   
   output$byCatchTypeRel = 
@@ -229,7 +225,44 @@ server = function(input, output, session) {
       t1nc_data = filter_nc_data()
       
       if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data, relative = TRUE)
+        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data, relative = TRUE) + 
+        labs(title = "Annual catches by type")
+    })
+  
+  output$byStock = 
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data) + 
+        labs(title = "Annual catches by stock")
+    })
+  
+  output$byStockRel = 
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data, relative = TRUE) + 
+        labs(title = "Annual catches by stock")
+    })
+  
+  output$bySampling = 
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_sampling_areas(t1nc_data) + 
+        labs(title = "Annual catches by sampling area")
+    })
+  
+  output$bySamplingRel = 
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_sampling_areas(t1nc_data, relative = TRUE) + 
+        labs(title = "Annual catches by sampling area")
     })
   
   output$byFleetGear =
@@ -237,7 +270,21 @@ server = function(input, output, session) {
       t1nc_data = filter_nc_data()
       
       if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.pareto_fleet_gears(t1nc_data, vertical = TRUE, max_x = 15)
+        iccat.pub.plots::t1nc.plot.pareto_fleet_gears(t1nc_data, vertical = FALSE, max_x = 30) + 
+        labs(title = "Cumulative catches by fleet and gear")
+    })
+  
+  output$bySamplingGear =
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.pareto(t1nc_data, 
+                                          x_column = "SampAreaCode", x_name = "Sampling area",
+                                          category_column = "GearGrp", category_name = "Gear group", 
+                                          category_levels = REF_GEAR_GROUPS$CODE, category_colors = iccat.pub.aes::REF_GEAR_GROUPS_COLORS,
+                                          vertical = FALSE, max_x = 30, max_categories = 10, rotate_x_labels = FALSE) + 
+        labs(title = "Cumulative catches by sampling area and gear")
     })
   
   output$filtered_data =

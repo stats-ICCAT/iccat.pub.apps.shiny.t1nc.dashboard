@@ -107,4 +107,12 @@ set_log_level(LOG_INFO)
 MIN_YEAR = 1950 #min(CA_ALL$Year)
 MAX_YEAR = max(NC_raw$YEAR)
 
+#NC_raw$YEAR = 
+#  factor(
+#    NC_raw$YEAR,
+#    labels = MIN_YEAR:MAX_YEAR,
+#    levelx = MIN_YEAR:MAX_YEAR,
+#    ordered = TRUE
+#  )
+
 INFO(paste0(nrow(NC_raw), " rows loaded from NC"))

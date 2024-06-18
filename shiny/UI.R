@@ -163,49 +163,81 @@ ui = function() {
             column(
               width = 10,
               div(style = "margin-top: 1em;",
-                  fluidRow(
-                    column(width = 6,
-                           strong("Annual catches by species"),
-                           tabsetPanel(
-                             tabPanel("Absolute",
-                                      plotOutput("bySpecies")
+                  tabsetPanel(
+                    tabPanel("Bar charts",
+                             div(style = "margin-top: 1em;",
+                                 fluidRow(
+                                   column(width = 6,
+                                          #strong("Annual catches by species"),
+                                          tabsetPanel(
+                                            type = "pills",
+                                            tabPanel("Absolute",
+                                                     plotOutput("bySpecies")
+                                                     ),
+                                            tabPanel("Relative",
+                                                     plotOutput("bySpeciesRel")
+                                                     )
+                                            )
+                                          ),
+                                   column(width = 6,
+                                          #strong("Annual catches by catch type"),
+                                          tabsetPanel(
+                                            type = "pills",
+                                            tabPanel("Absolute",
+                                                     plotOutput("byCatchType")
+                                                     ),
+                                            tabPanel("Relative",
+                                                     plotOutput("byCatchTypeRel")
+                                                     )
+                                            )
+                                          )
+                                   ),
+                                 fluidRow(
+                                   column(width = 6,
+                                          #strong("Annual catches by stock"),
+                                          tabsetPanel(
+                                            type = "pills",
+                                            tabPanel("Absolute",
+                                                     plotOutput("byStock")
+                                                     ),
+                                            tabPanel("Relative",
+                                                     plotOutput("byStockRel")
+                                                     )
+                                            )
+                                          ),
+                                   column(width = 6,
+                                          #strong("Annual catches by sampling area"),
+                                          tabsetPanel(
+                                            type = "pills", 
+                                            tabPanel("Absolute",
+                                                     plotOutput("bySampling")
+                                                     ),
+                                            tabPanel("Relative",
+                                                     plotOutput("bySamplingRel")
+                                                     )
+                                            )
+                                          )
+                                   )
+                                 )
                              ),
-                             tabPanel("Relative",
-                                      plotOutput("bySpeciesRel")
+                    tabPanel("Pareto charts",
+                             div(style = "margin-top: 1em;",
+                                 fluidRow(
+                                   column(width = 12,
+                                          #strong("Cumulative catches by flag and gear group"),
+                                          plotOutput("byFleetGear")
+                                          )
+                                 ),
+                                 fluidRow(
+                                   column(width = 12,
+                                          #strong("Cumulative catches by sampling area and gear group"),
+                                          plotOutput("bySamplingGear")
+                                   )
+                                 )
                              )
-                           )
-                           
-                    ),
-                    column(width = 6,
-                           strong("Annual catches by catch type"),
-                           tabsetPanel(
-                             tabPanel("Absolute",
-                                      plotOutput("byCatchType")
-                             ),
-                             tabPanel("Relative",
-                                      plotOutput("byCatchTypeRel")
-                             )
-                           )
-                    )
-                  ),
-                  fluidRow(
-                    column(width = 6,
-                           strong("Annual catches by stock"),
-                           tabsetPanel(
-                             tabPanel("Absolute",
-                                      plotOutput("byStock")
-                             ),
-                             tabPanel("Relative",
-                                      plotOutput("byStockRel")
-                             )
-                           )
-                    ),
-                    column(width = 6,
-                           strong("Cumulative catches by flag and gear group"),
-                           plotOutput("byFleetGear")
                     )
                   )
-              )        
+              )
             )
           )
         )
