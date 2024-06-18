@@ -28,7 +28,8 @@ RUN R -e "install.packages(c('scales'), repos = 'http://cran.r-project.org')"
 
 RUN R -e "install.packages(c('maps', 'mapdata', 'mapplots', 'ggthemes', 'ggnewscale', 'sf'), repos = 'http://cran.r-project.org')"
 
-RUN R -e "install.packages(c('sf'), repos = 'http://cran.r-project.org')"
+# Missing dependency for sf
+RUN apt-get -y install libudunits2-dev
 
 # Sets the working directory to the shiny-server root folder
 WORKDIR /srv/shiny-server
