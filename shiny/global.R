@@ -2,6 +2,7 @@ library(stringr)
 
 library(iccat.pub.base)
 library(iccat.pub.data)
+library(iccat.pub.plots)
 
 library(shiny)
 library(shinyjs)
@@ -10,6 +11,7 @@ library(shinycssloaders)
 library(DT)
 
 library(RColorBrewer)
+library(scales)
 
 #library(plotly)
 

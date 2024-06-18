@@ -6,14 +6,14 @@ server = function(input, output, session) {
          flags = c(),
          gearGroups = c(),
          samplingAreas = c(),
-         catchTypes = c()
-         #CPCs = c(),
-         #CPCStatus = c(),
-         #fleets = c(),
-         #gears = c(),
-         #areas = c(),
-         #fishingZoneCodes = c(),
-         #qualities = c()
+         catchTypes = c(),
+         CPCs = c(),
+         CPCStatus = c(),
+         fleets = c(),
+         gears = c(),
+         areas = c(),
+         fishingZoneCodes = c(),
+         qualities = c()
     )
   
   observeEvent(input$resetFilters, { session$reload() })
@@ -149,42 +149,18 @@ server = function(input, output, session) {
     renderPlot({
       t1nc_data = filter_nc_data()
       
-      species_codes = sort(unique(t1nc_data$Species))
-      
-      SPECIES_COLORS = data.table(CODE = species_codes)
-      SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
-      SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
-      
-      iccat.pub.plots::t1nc.plot.bar(
-        t1nc_data,
-        category_column = "Species",
-        colors = SPECIES_COLORS
-      ) + 
-      guides(
-        fill =
-          guide_legend(
-            title = "Species"
-          )
-      )
-    }
-  )
-    
-  output$bySpeciesRel = 
-    renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      species_codes = sort(unique(t1nc_data$Species))
-      
-      SPECIES_COLORS = data.table(CODE = species_codes)
-      SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
-      SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
-      
-      iccat.pub.plots::t1nc.plot.bar(
-        t1nc_data,
-        category_column = "Species",
-        colors = SPECIES_COLORS,
-        relative = TRUE
-      ) + 
+      if(nrow(t1nc_data) > 0) {
+        species_codes = sort(unique(t1nc_data$Species))
+        
+        SPECIES_COLORS = data.table(CODE = species_codes)
+        SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
+        SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
+        
+        iccat.pub.plots::t1nc.plot.bar(
+          t1nc_data,
+          category_column = "Species",
+          colors = SPECIES_COLORS
+        ) + 
         guides(
           fill =
             guide_legend(
@@ -192,36 +168,77 @@ server = function(input, output, session) {
             )
         )
       }
-    )
+    })
+    
+  output$bySpeciesRel = 
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0) {
+        species_codes = sort(unique(t1nc_data$Species))
+        
+        SPECIES_COLORS = data.table(CODE = species_codes)
+        SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
+        SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
+        
+        iccat.pub.plots::t1nc.plot.bar(
+          t1nc_data,
+          category_column = "Species",
+          colors = SPECIES_COLORS,
+          relative = TRUE
+        ) + 
+          guides(
+            fill =
+              guide_legend(
+                title = "Species"
+              )
+          )
+      }
+    })
     
   output$byStock = 
-    renderPlot(
-      iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data = validate_filtering(filter_nc_data()))
-    )
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data)
+    })
   
   output$byStockRel = 
-    renderPlot(
-      iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data = validate_filtering(filter_nc_data()), relative = TRUE)
-    )
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data, relative = TRUE)
+    })
   
   output$byCatchType = 
-    renderPlot(
-      iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data = validate_filtering(filter_nc_data()))
-    )
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data)
+    })
   
   output$byCatchTypeRel = 
-    renderPlot(
-      iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data = validate_filtering(filter_nc_data()), relative = TRUE)
-    )
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data, relative = TRUE)
+    })
   
   output$byFleetGear =
-    renderPlot(
-      iccat.pub.plots::t1nc.plot.pareto_fleet_gears(t1nc_data = validate_filtering(filter_nc_data()), vertical = TRUE, max_x = 15)
-    )
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        iccat.pub.plots::t1nc.plot.pareto_fleet_gears(t1nc_data, vertical = TRUE, max_x = 15)
+    })
   
   output$filtered_data =
     renderDataTable({
-      filtered_data = validate_filtering(filter_nc_data())
+      t1nc_data = filter_nc_data() 
 
       return(
         DT::datatable(
