@@ -114,6 +114,12 @@ ui = function() {
                              fluidRow(
                                column(
                                  width = 12,
+                                 UI_select_input("areas", "Area(s)", ALL_AREAS)
+                               )
+                             ),
+                             fluidRow(
+                               column(
+                                 width = 12,
                                  UI_select_input("fishingZones", "Fishing zone(s)", ALL_FISHING_ZONES)
                                )
                              ),

@@ -36,6 +36,7 @@ ALL_GEARS          = setNames(as.character(REF_GEARS$CODE),          paste0(REF_
 
 ALL_STOCK_AREAS    = setNames(as.character(REF_STOCK_AREAS$CODE),    paste0(REF_STOCK_AREAS$CODE,    " - ", REF_STOCK_AREAS$NAME_EN))
 
+SAMPLING_AREAS_UNK = data.table(CODE = "unkn", NAME_EN = "Unknown")
 SAMPLING_AREAS_ALB = REF_SAMPLING_AREAS[str_sub(CODE, 1, 2) == "AL"]
 SAMPLING_AREAS_BFT = REF_SAMPLING_AREAS[str_sub(CODE, 1, 2) == "BF"]
 SAMPLING_AREAS_BET = REF_SAMPLING_AREAS[str_sub(CODE, 1, 2) == "BE"]
@@ -49,7 +50,8 @@ ALL_SAMPLING_AREAS = list(
   "Bigeye tuna"    = setNames(SAMPLING_AREAS_BET$CODE, paste0(SAMPLING_AREAS_BET$CODE, " - ", SAMPLING_AREAS_BET$NAME_EN)),
   "Skipjack tuna"  = setNames(SAMPLING_AREAS_SKJ$CODE, paste0(SAMPLING_AREAS_SKJ$CODE, " - ", SAMPLING_AREAS_SKJ$NAME_EN)),
   "Yellowfin tuna" = setNames(SAMPLING_AREAS_YFT$CODE, paste0(SAMPLING_AREAS_YFT$CODE, " - ", SAMPLING_AREAS_YFT$NAME_EN)),
-  "Billfish"       = setNames(SAMPLING_AREAS_BIL$CODE, paste0(SAMPLING_AREAS_BIL$CODE, " - ", SAMPLING_AREAS_BIL$NAME_EN))
+  "Billfish"       = setNames(SAMPLING_AREAS_BIL$CODE, paste0(SAMPLING_AREAS_BIL$CODE, " - ", SAMPLING_AREAS_BIL$NAME_EN)),
+  "All other"      = setNames(SAMPLING_AREAS_UNK$CODE, paste0(SAMPLING_AREAS_UNK$CODE, " - ", SAMPLING_AREAS_UNK$NAME_EN))
 )
 
 ALL_AREAS          = setNames(as.character(REF_AREAS$CODE),          paste0(REF_AREAS$CODE,          " - ", REF_AREAS$NAME_EN))
