@@ -133,24 +133,24 @@ ui = function() {
                   actionButton("resetFilters", "Reset all filters", icon = icon("filter-circle-xmark"))
                 )
               ),
-              fluidRow(
-                column(
-                  width = 12,
-                  h5(strong("Download current dataset:"))
-                )
-              ),
-              fluidRow(
-                column(
-                  width = 4,
-                  downloadButton("downloadFiltered", "Filtered", style = "width: 100px")
-                ),
-                column(
-                  width = 4,
-                  span("as ", style = "vertical-align: -5px",
-                       code(".csv.gz")
-                  )
-                )
-              ),
+              #fluidRow(
+              #  column(
+              #    width = 12,
+              #    h5(strong("Download current dataset:"))
+              #  )
+              #),
+              #fluidRow(
+              #  column(
+              #    width = 4,
+              #    downloadButton("downloadFiltered", "Filtered", style = "width: 100px")
+              #  ),
+              #  column(
+              #    width = 4,
+              #    span("as ", style = "vertical-align: -5px",
+              #         code(".csv.gz")
+              #    )
+              #  )
+              #),
               fluidRow(
                 column(
                   width = 12,
