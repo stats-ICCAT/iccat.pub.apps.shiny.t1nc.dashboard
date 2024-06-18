@@ -11,7 +11,7 @@ library(DT)
 
 library(RColorBrewer)
 
-library(plotly)
+#library(plotly)
 
 options(scipen = 9999)
 
