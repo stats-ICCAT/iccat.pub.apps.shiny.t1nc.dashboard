@@ -18,6 +18,7 @@ RUN install2.r --error --skipinstalled \
 RUN install2.r --error --skipinstalled \
     dplyr \ 
     RColorBrewer \ 
+    scales \
     scatterpie
 
 # Sets the working directory to the shiny-server root folder
