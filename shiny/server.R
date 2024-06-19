@@ -122,6 +122,45 @@ server = function(input, output, session) {
                         Qty_t = CATCH)])
   }
   
+  catch_map = function(data_geo, geo_column) {
+    DATA_GEO = copy(data_geo)
+    colnames(DATA_GEO)[which(colnames(DATA_GEO) == geo_column)] = "GEO_CODE"
+    
+    DATA_GEO = DATA_GEO[!is.na(GEO_CODE) & GEO_CODE != "unkn", .(CATCH = sum(Qty_t, na.rm = TRUE)), keyby = .(GEO_CODE)]
+    
+    DATA_GEO = merge(DATA_GEO, STOCK_AND_SAMPLING_AREAS_RAW_GEOMETRIES,
+                     by.x = "GEO_CODE", by.y = "CODE",
+                     all.x = TRUE, all.y = FALSE)
+    
+    DATA_GEO = st_as_sf(DATA_GEO, crs = 4326, wkt = "GEOMETRY_WKT")
+    
+    map = 
+      iccat.pub.maps::map.atlantic() +
+      geom_sf(DATA_GEO,
+              mapping = aes(
+                alpha = CATCH 
+              ),
+              fill = "blue"
+      ) +
+      guides(
+        alpha = guide_legend(title = "Catches (t)", position = "right")
+      ) +
+      geom_sf_label(
+        data = DATA_GEO, 
+        mapping = aes(
+          label = GEO_CODE
+        ), 
+        fill  = "white",
+        color = "black",
+        alpha = .7
+      ) +
+      scale_alpha_continuous(labels = scales::comma)
+    
+    return(
+      map
+    )
+  }
+  
   filter_nc_data = reactive({
     return(
       filter_nc_data_(input)
@@ -287,10 +326,52 @@ server = function(input, output, session) {
         labs(title = "Cumulative catches by sampling area and gear")
     })
   
+  output$mapByStockArea =
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        catch_map(t1nc_data, geo_column = "Stock") + 
+        labs(title = "Cumulative catches by stock")
+    })
+  
+  output$mapBySamplingArea =
+    renderPlot({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0)
+        catch_map(t1nc_data, geo_column = "SampAreaCode") + 
+        labs(title = "Cumulative catches by sampling area")
+    })
+  
+  output$mapBySamplingAreaTable = 
+    renderDataTable({
+      t1nc_data = filter_nc_data()
+      
+      if(nrow(t1nc_data) > 0) {
+        t1nc_data = t1nc_data[, .(CATCH = sum(Qty_t, na.rm = TRUE)), keyby = .(SAMPLING_AREA_CODE = SampAreaCode)][, .(SAMPLING_AREA_CODE, CATCH)]
+        
+        return(
+          DT::datatable(
+            t1nc_data,
+            options = list(
+              pageLength = 25,
+              autoWidth = TRUE,
+              dom = "ltipr" # To remove the 'search box' - see: https://rstudio.github.io/DT/options.html and https://datatables.net/reference/option/dom
+            ),
+            filter    = "none",
+            selection = "none",
+            rownames = FALSE,
+            colnames = c("Sampling area code", "Total catches (t)")
+          ) %>% DT::formatCurrency(columns = c("CATCH"), currency = "")
+        )
+      }
+    })
+  
   output$filtered_data =
     renderDataTable({
       t1nc_data = filter_nc_data() 
-
+      
       return(
         DT::datatable(
           filtered_data,
@@ -307,6 +388,7 @@ server = function(input, output, session) {
         %>% DT::formatCurrency(columns = c("CATCH"), currency = "")
       )
     })
+  
   
   serialize_last_update_date = function() {
     return(

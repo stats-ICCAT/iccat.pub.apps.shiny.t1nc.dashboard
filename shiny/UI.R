@@ -171,6 +171,7 @@ ui = function() {
               div(style = "margin-top: 1em;",
                   tabsetPanel(
                     tabPanel("Bar charts",
+                             icon = icon("chart-bar"),
                              div(style = "margin-top: 1em;",
                                  fluidRow(
                                    column(width = 6,
@@ -227,6 +228,7 @@ ui = function() {
                                  )
                              ),
                     tabPanel("Pareto charts",
+                             icon = icon("chart-line"),
                              div(style = "margin-top: 1em;",
                                  fluidRow(
                                    column(width = 12,
@@ -239,6 +241,19 @@ ui = function() {
                                           #strong("Cumulative catches by sampling area and gear group"),
                                           plotOutput("bySamplingGear")
                                    )
+                                 )
+                             )
+                    ),
+                    tabPanel("Geospatial charts",
+                             icon = icon("globe-europe"),
+                             div(style = "margin-top: 1em;",
+                                 fluidRow(
+                                   column(width = 6,
+                                          plotOutput("mapBySamplingArea", height = 640)
+                                          ),
+                                   column(width = 6,
+                                          dataTableOutput("mapBySamplingAreaTable")
+                                          )
                                  )
                              )
                     )

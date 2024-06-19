@@ -12,6 +12,7 @@ library(DT)
 
 library(RColorBrewer)
 library(scales)
+library(dplyr)
 
 #library(plotly)
 
