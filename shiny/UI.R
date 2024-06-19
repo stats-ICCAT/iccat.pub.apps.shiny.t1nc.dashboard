@@ -185,10 +185,10 @@ ui = function() {
                                           tabsetPanel(
                                             type = "pills",
                                             tabPanel("Absolute",
-                                                     plotOutput("bySpecies")
+                                                     plotOutput("bySpecies",    height = 320)
                                             ),
                                             tabPanel("Relative",
-                                                     plotOutput("bySpeciesRel")
+                                                     plotOutput("bySpeciesRel", height = 320)
                                             )
                                           )
                                    ),
@@ -196,10 +196,10 @@ ui = function() {
                                           tabsetPanel(
                                             type = "pills",
                                             tabPanel("Absolute",
-                                                     plotOutput("byCatchType")
+                                                     plotOutput("byCatchType",    height = 320)
                                             ),
                                             tabPanel("Relative",
-                                                     plotOutput("byCatchTypeRel")
+                                                     plotOutput("byCatchTypeRel", height = 320)
                                             )
                                           )
                                    )
@@ -209,10 +209,10 @@ ui = function() {
                                           tabsetPanel(
                                             type = "pills",
                                             tabPanel("Absolute",
-                                                     plotOutput("byStock")
+                                                     plotOutput("byStock",    height = 320)
                                             ),
                                             tabPanel("Relative",
-                                                     plotOutput("byStockRel")
+                                                     plotOutput("byStockRel", height = 320)
                                             )
                                           )
                                    ),
@@ -220,10 +220,10 @@ ui = function() {
                                           tabsetPanel(
                                             type = "pills", 
                                             tabPanel("Absolute",
-                                                     plotOutput("bySampling")
+                                                     plotOutput("bySampling",    height = 320)
                                             ),
                                             tabPanel("Relative",
-                                                     plotOutput("bySamplingRel")
+                                                     plotOutput("bySamplingRel", height = 320)
                                             )
                                           )
                                     )
