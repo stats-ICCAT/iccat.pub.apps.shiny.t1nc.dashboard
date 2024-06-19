@@ -18,7 +18,7 @@ server = function(input, output, session) {
   
   observeEvent(input$resetFilters, { session$reload() })
 
-  default_filter_data = function(data, input = EMPTY_FILTER) {
+  default_filter_data = function(data, input = EMPTY_FILTER, shrink_columns = TRUE) {
     INFO("### Performing search")
     INFO(paste0("Years          : ", paste0(input$years,         collapse = "-")))
     INFO(paste0("Species        : ", paste0(input$species,       collapse = ", ")))
@@ -112,14 +112,17 @@ server = function(input, output, session) {
     INFO(paste0("Filtered data size: ", nrow(filtered)))
     INFO("")
     
-    return(filtered[, .(YearC = YEAR, 
-                        FlagName = FLAG_NAME_EN, 
-                        Stock = STOCK_AREA_CODE, 
-                        SampAreaCode = SAMPLING_AREA_CODE,
-                        Species = SPECIES_CODE, 
-                        GearGrp = GEAR_GROUP_CODE, 
-                        CatchTypeCode = CATCH_TYPE_CODE, 
-                        Qty_t = CATCH)])
+    if(shrink_columns)
+      return(filtered[, .(YearC = YEAR, 
+                          FlagName = FLAG_NAME_EN, 
+                          Stock = STOCK_AREA_CODE, 
+                          SampAreaCode = SAMPLING_AREA_CODE,
+                          Species = SPECIES_CODE, 
+                          GearGrp = GEAR_GROUP_CODE, 
+                          CatchTypeCode = CATCH_TYPE_CODE, 
+                          Qty_t = CATCH)])
+    else
+      return(filtered)
   }
   
   catch_map = function(data_geo, geo_column) {
@@ -344,6 +347,57 @@ server = function(input, output, session) {
         labs(title = "Cumulative catches by sampling area")
     })
   
+  output$tabularData = 
+    renderDataTable({
+      t1nc_data = default_filter_data(NC_raw, input, shrink_columns = FALSE)
+      
+      if(nrow(t1nc_data) > 0) {
+        return(
+          DT::datatable(
+            t1nc_data[, .(DATASET_ID, STRATA_ID, 
+                          FLAG_NAME_EN, 
+                          FLEET_CODE, 
+                          CPC_CODE, CPC_STATUS_CODE, 
+                          GEAR_GROUP_CODE, GEAR_CODE, 
+                          YEAR, 
+                          STOCK_AREA_CODE, SAMPLING_AREA_CODE, AREA_CODE,
+                          FISHING_ZONE_CODE,
+                          CATCH_TYPE_CODE,
+                          QUALITY_CODE,
+                          CATCH_UNIT_CODE, 
+                          CONVERSION_FACTOR,
+                          SPECIES_CODE,
+                          CATCH)],
+            options = list(
+              pageLength = 50,
+              autoWidth = TRUE,
+              scrollX = TRUE,
+              dom = "ltipr" # To remove the 'search box' - see: https://rstudio.github.io/DT/options.html and https://datatables.net/reference/option/dom
+            ),
+            filter    = "none",
+            selection = "none",
+            rownames = FALSE,
+            colnames = c("Dataset ID", "Strata ID",
+                         "Flag name",
+                         "Fleet code",
+                         "CPC", "CPC status",
+                         "Gear group", "Gear",
+                         "Year",
+                         "Stock area",
+                         "Sampling area", 
+                         "Area",
+                         "Fishing zone",
+                         "Catch type",
+                         "Quality level",
+                         "Catch unit",
+                         "Conversion factor",
+                         "Species",
+                         "Catch")
+          ) %>% DT::formatCurrency(columns = c("CATCH"), currency = "")
+        )
+      }
+    })
+  
   output$mapBySamplingAreaTable = 
     renderDataTable({
       t1nc_data = filter_nc_data()
@@ -355,7 +409,7 @@ server = function(input, output, session) {
           DT::datatable(
             t1nc_data,
             options = list(
-              pageLength = 25,
+              pageLength = 20,
               autoWidth = TRUE,
               dom = "ltipr" # To remove the 'search box' - see: https://rstudio.github.io/DT/options.html and https://datatables.net/reference/option/dom
             ),

@@ -170,75 +170,76 @@ ui = function() {
               width = 10,
               div(style = "margin-top: 1em;",
                   tabsetPanel(
+                    selected = "Bar charts",
+                    tabPanel("Tabular data",
+                             icon = icon("list-alt"),
+                             div(id = "tabularData", style = "margin-top: 1em;",
+                                 dataTableOutput("tabularData")
+                             )
+                    ),
                     tabPanel("Bar charts",
                              icon = icon("chart-bar"),
                              div(style = "margin-top: 1em;",
                                  fluidRow(
                                    column(width = 6,
-                                          #strong("Annual catches by species"),
                                           tabsetPanel(
                                             type = "pills",
                                             tabPanel("Absolute",
                                                      plotOutput("bySpecies")
-                                                     ),
+                                            ),
                                             tabPanel("Relative",
                                                      plotOutput("bySpeciesRel")
-                                                     )
                                             )
-                                          ),
+                                          )
+                                   ),
                                    column(width = 6,
-                                          #strong("Annual catches by catch type"),
                                           tabsetPanel(
                                             type = "pills",
                                             tabPanel("Absolute",
                                                      plotOutput("byCatchType")
-                                                     ),
+                                            ),
                                             tabPanel("Relative",
                                                      plotOutput("byCatchTypeRel")
-                                                     )
                                             )
                                           )
-                                   ),
+                                   )
+                                 ),
                                  fluidRow(
                                    column(width = 6,
-                                          #strong("Annual catches by stock"),
                                           tabsetPanel(
                                             type = "pills",
                                             tabPanel("Absolute",
                                                      plotOutput("byStock")
-                                                     ),
+                                            ),
                                             tabPanel("Relative",
                                                      plotOutput("byStockRel")
-                                                     )
                                             )
-                                          ),
+                                          )
+                                   ),
                                    column(width = 6,
-                                          #strong("Annual catches by sampling area"),
                                           tabsetPanel(
                                             type = "pills", 
                                             tabPanel("Absolute",
                                                      plotOutput("bySampling")
-                                                     ),
+                                            ),
                                             tabPanel("Relative",
                                                      plotOutput("bySamplingRel")
-                                                     )
                                             )
                                           )
-                                   )
-                                 )
-                             ),
+                                    )
+                                )
+                             )
+                    ),
                     tabPanel("Pareto charts",
                              icon = icon("chart-line"),
                              div(style = "margin-top: 1em;",
                                  fluidRow(
                                    column(width = 12,
-                                          #strong("Cumulative catches by flag and gear group"),
                                           plotOutput("byFleetGear")
-                                          )
+                                   )
                                  ),
                                  fluidRow(
                                    column(width = 12,
-                                          #strong("Cumulative catches by sampling area and gear group"),
                                           plotOutput("bySamplingGear")
                                    )
                                  )
@@ -250,10 +251,12 @@ ui = function() {
                                  fluidRow(
                                    column(width = 6,
                                           plotOutput("mapBySamplingArea", height = 640)
-                                          ),
+                                   ),
                                    column(width = 6,
-                                          dataTableOutput("mapBySamplingAreaTable")
+                                          div(id = "mapBySamplingAreaTable",
+                                              dataTableOutput("mapBySamplingAreaTable")
                                           )
+                                   )
                                  )
                              )
                     )

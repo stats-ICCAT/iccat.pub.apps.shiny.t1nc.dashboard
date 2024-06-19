@@ -1,165 +1,48 @@
-/* DATA (long) */
+#tabularData,
+#mapBySamplingAreaTable {
+  font-size: x-small !important;
+}
 
-#filtered_data_container_long .dataTables_scrollBody table {
+#tabularData .dataTables_scrollBody table {
   float: left;
 }
 
-#filtered_data_container_long {
+
+#tabularData {
   font-size: x-small;
   padding-top: 1em;
 } 
 
-#filtered_data_container_long table thead tr th,
-#filtered_data_container_long table tbody tr td {
+#tabularData table thead tr th,
+#tabularData table tbody tr td {
   padding-top: 2px !important;
   padding-bottom: 1px !important;
   line-height: 1em;
 }
 
 /* Default cell width + alignment */
-#filtered_data_container_long table thead tr th,
-#filtered_data_container_long table tbody tr td {
+#tabularData table thead tr th,
+#tabularData table tbody tr td {
   min-width: 10px;
 }
 
-#filtered_data_container_long table thead tr th:nth-child(-n + 2),                     /* Header, from the  1st column ("Dataset ID") to the  2nd column ("Strata ID") */        
-#filtered_data_container_long table thead tr th:nth-child(n + 5),                      /* Header, from the  5th column ("CPC") onwards */
-#filtered_data_container_long table tbody tr td:nth-child(n + 5):nth-child(-n + 17)  { /* Body,   from the  5th column ("CPC") to the 17th column ("Species") */
+#tabularData table thead tr th:nth-child(-n + 2),                     /* Header, from the  1st column ("Dataset ID") to the  2nd column ("Strata ID") */        
+#tabularData table thead tr th:nth-child(n + 5),                      /* Header, from the  5th column ("CPC") onwards */
+#tabularData table tbody tr td:nth-child(n + 5):nth-child(-n + 17)  { /* Body,   from the  5th column ("CPC") to the 17th column ("Species") */
   text-align: center;
 }
 
-#filtered_data_container_long table thead tr th:nth-child(n + 5):nth-child(-n + 17) {  /* Header, from the  5th column ("CPC") to the 17th column ("Species") */
+#tabularData table thead tr th:nth-child(n + 5):nth-child(-n + 17) {  /* Header, from the  5th column ("CPC") to the 17th column ("Species") */
   min-width: 35px;
 }
 
 /* Flag name & fleet code */
-#filtered_data_container_long table thead tr th:nth-child(n + 3):nth-child(-n + 4) {   /* Header, from the  3rd column ("Flag") to the 4th column ("Fleet code") */
+#tabularData table thead tr th:nth-child(n + 3):nth-child(-n + 4) {   /* Header, from the  3rd column ("Flag") to the 4th column ("Fleet code") */
   min-width: 150px;
 }
 
-#filtered_data_container_long table thead tr th:nth-child(n + 18) {                    /* Header, from the 18th column ("Catch") onwards */
+#tabularData table thead tr th:nth-child(n + 18) {                    /* Header, from the 18th column ("Catch") onwards */
   min-width: 40px;
-}
-
-/* DATA (wide) */
-
-#filtered_data_container_wide .dataTables_scrollBody table {
-  float: left;
-}
-
-#filtered_data_container_wide {
-  font-size: x-small;
-  padding-top: 1em;
-} 
-
-#filtered_data_container_wide table thead tr th,
-#filtered_data_container_wide table tbody tr td {
-  padding-top: 2px !important;
-  padding-bottom: 1px !important;
-  line-height: 1em;
-}
-
-/* Default cell width + alignment */
-#filtered_data_container_wide table thead tr th,
-#filtered_data_container_wide table tbody tr td {
-  min-width: 10px;
-}
-
-#filtered_data_container_wide table thead tr th:nth-child(n + 3),                      /* Header, from the  3rd column ("CPC") onwards */
-#filtered_data_container_wide table tbody tr td:nth-child(n + 3):nth-child(-n + 14)  { /* Body,   from the  3rd column ("CPC") to the 14th column ("Catch unit") */
-  text-align: center;
-}
-
-/* Flag name & fleet code */
-#filtered_data_container_wide table thead tr th:nth-child(-n + 2) {                    /* Header, from the  1st column ("Flag") to the 2nd column ("Fleet code") */
-  min-width: 150px;
-}
-
-#filtered_data_container_wide table thead tr th:nth-child(n + 3):nth-child(-n + 14) {  /* Header, from the  3rd column ("CPC") to the 14th column ("Catch unit") */
-  min-width: 35px;
-}
-
-#filtered_data_container_wide table thead tr th:nth-child(n + 15) {                    /* Header, from the 15th column ("Total") onwards */
-  min-width: 40px;
-}
-
-/* SUMMARY */
-
-#filtered_summary_container .dataTables_scrollBody table {
-  float: left;
-}
-
-#filtered_summary_container {
-  font-size: x-small;
-  padding-top: 1em;
-}
-
-#filtered_summary_container table thead tr th, 
-#filtered_summary_container table tbody tr td {
-  padding-top: 2px !important;
-  padding-bottom: 1px !important;
-  line-height: 1em;
-}
-
-/* Default cell width + alignment */
-#filtered_summary_container table thead tr th,
-#filtered_summary_container table tbody tr td {
-  min-width: 10px;
-}
-
-#filtered_summary_container table thead tr th:nth-child(n + 2),                   /* Header, from the  2nd column ("Gear group") onwards */
-#filtered_summary_container table tbody tr td:nth-child(n + 2) {                  /* Body,   from the  2nd column ("Gear group") onwards */
-  text-align: center;
-}
- 
-/* Flag name */
-#filtered_summary_container table thead tr th:nth-child(1) {                      /* Header, for the   1st column ("Flag") only */
-  min-width: 150px;
-}
-
-/* Gear group & catch unit & dataset type */
-#filtered_summary_container table thead tr th:nth-child(n + 2):nth-child(-n + 3) {/* Header, from the  2nd column ("Gear group") to the 4th column ("Dataset type") */
-  min-width: 35px;
-}
-
-/* DETAILED SUMMARY */
-
-#filtered_detailed_summary_container .dataTables_scrollBody table {
-  float: left;
-}
-
-#filtered_detailed_summary_container {
-  font-size: x-small;
-  padding-top: 1em;
-}
-
-/* Default cell width + alignment */
-#filtered_detailed_summary_container table thead tr th, 
-#filtered_detailed_summary_container table tbody tr td {
-  padding-top: 2px !important;
-  padding-bottom: 1px !important;
-  line-height: 1em;
-}
-
-#filtered_detailed_summary_container table thead tr th,
-#filtered_detailed_summary_container table tbody tr td {
-  min-width: 10px;
-}
-
-#filtered_detailed_summary_container table thead tr th:nth-child(n + 3),          /* Header, from the  3rd column ("Gear group") onwards */
-#filtered_detailed_summary_container table tbody tr td:nth-child(n + 3) {         /* Body,   from the  3rd column ("Gear group") onwards */
-  text-align: center;
-}
-
-/* Flag name & fleet code */
-#filtered_detailed_summary_container table thead tr th:nth-child(-n + 2) {        /* Header, from the  1st column ("Flag") to the  2nd column ("Fleet code") */
-  min-width: 150px;
-}
-
-/* Gear group & Gear & Stock area & Sampling area & Catch type */
-#filtered_detailed_summary_container table thead tr th:nth-child(n + 3):nth-child(-n + 7),   /* Header, from the  3rd column ("Gear group") to the  7th column ("catch type") */
-#filtered_detailed_summary_container table tbody tr td:nth-child(n + 3):nth-child(-n + 7) {  /* Body,   from the  3rd column ("Gear group") to the  7th column ("Catch type") */
-  min-width: 35px;
 }
 
 /* LAYOUT ETC. */
