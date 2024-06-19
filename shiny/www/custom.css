@@ -28,11 +28,11 @@
 
 #tabularData table thead tr th:nth-child(-n + 2),                     /* Header, from the  1st column ("Dataset ID") to the  2nd column ("Strata ID") */        
 #tabularData table thead tr th:nth-child(n + 5),                      /* Header, from the  5th column ("CPC") onwards */
-#tabularData table tbody tr td:nth-child(n + 5):nth-child(-n + 17)  { /* Body,   from the  5th column ("CPC") to the 17th column ("Species") */
+#tabularData table tbody tr td:nth-child(n + 5):nth-child(-n + 18)  { /* Body,   from the  5th column ("CPC") to the 17th column ("Species") */
   text-align: center;
 }
 
-#tabularData table thead tr th:nth-child(n + 5):nth-child(-n + 17) {  /* Header, from the  5th column ("CPC") to the 17th column ("Species") */
+#tabularData table thead tr th:nth-child(n + 5):nth-child(-n + 18) {  /* Header, from the  5th column ("CPC") to the 17th column ("Species") */
   min-width: 35px;
 }
 
@@ -41,7 +41,7 @@
   min-width: 150px;
 }
 
-#tabularData table thead tr th:nth-child(n + 18) {                    /* Header, from the 18th column ("Catch") onwards */
+#tabularData table thead tr th:nth-child(n + 19) {                    /* Header, from the 18th column ("Catch") onwards */
   min-width: 40px;
 }
 
