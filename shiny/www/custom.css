@@ -64,10 +64,12 @@
     text-align: center;
 }
 
+/*
 .dataTables_paginate {
   float: left !important;
   margin-left: calc(20vw - 2em);
 }
+*/
 
 #glasspane {
 	position: fixed;
