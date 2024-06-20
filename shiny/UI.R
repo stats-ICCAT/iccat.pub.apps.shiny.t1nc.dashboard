@@ -156,54 +156,57 @@ ui = function() {
                     tabPanel("Bar charts",
                              icon = icon("chart-bar"),
                              div(style = "margin-top: 1em;",
-                                 fluidRow(
-                                   column(width = 6,
-                                          tabsetPanel(
-                                            type = "pills",
-                                            tabPanel("Absolute",
-                                                     plotOutput("bySpecies",    height = 320)
-                                            ),
-                                            tabPanel("Relative",
-                                                     plotOutput("bySpeciesRel", height = 320)
-                                            )
-                                          )
+                                 tabsetPanel(
+                                   type = "pills",
+                                   tabPanel("Absolute",
+                                    div(style = "margin-top: 1em;",
+                                      fluidRow(
+                                        column(width = 6,
+                                               downloadButton("downloadBarSpecies", "Download as image"),
+                                               plotOutput("bySpecies",   height = 320)
+                                        ),
+                                        column(width = 6,
+                                               downloadButton("downloadBarCatchType", "Download as image"),
+                                               plotOutput("byCatchType", height = 320)
+                                        )
+                                      ),
+                                      fluidRow(
+                                        column(width = 6, 
+                                               downloadButton("downloadBarStock", "Download as image"),
+                                               plotOutput("byStock",     height = 320)
+                                        ),
+                                        column(width = 6,
+                                               downloadButton("downloadBarSampling", "Download as image"),
+                                               plotOutput("bySampling",  height = 320)
+                                        )
+                                      )
+                                     )
                                    ),
-                                   column(width = 6,
-                                          tabsetPanel(
-                                            type = "pills",
-                                            tabPanel("Absolute",
-                                                     plotOutput("byCatchType",    height = 320)
-                                            ),
-                                            tabPanel("Relative",
-                                                     plotOutput("byCatchTypeRel", height = 320)
-                                            )
-                                          )
-                                   )
-                                 ),
-                                 fluidRow(
-                                   column(width = 6,
-                                          tabsetPanel(
-                                            type = "pills",
-                                            tabPanel("Absolute",
-                                                     plotOutput("byStock",    height = 320)
-                                            ),
-                                            tabPanel("Relative",
-                                                     plotOutput("byStockRel", height = 320)
-                                            )
-                                          )
-                                   ),
-                                   column(width = 6,
-                                          tabsetPanel(
-                                            type = "pills", 
-                                            tabPanel("Absolute",
-                                                     plotOutput("bySampling",    height = 320)
-                                            ),
-                                            tabPanel("Relative",
-                                                     plotOutput("bySamplingRel", height = 320)
-                                            )
-                                          )
+                                   tabPanel("Relative",
+                                    div(style = "margin-top: 1em;",
+                                      fluidRow(
+                                        column(width = 6,
+                                               downloadButton("downloadBarSpeciesRel", "Download as image"),
+                                               plotOutput("bySpeciesRel",   height = 320)
+                                        ),
+                                        column(width = 6,
+                                               downloadButton("downloadBarCatchTypeRel", "Download as image"),
+                                               plotOutput("byCatchTypeRel", height = 320)
+                                        )
+                                      ),
+                                      fluidRow(
+                                        column(width = 6, 
+                                               downloadButton("downloadBarStockRel", "Download as image"),
+                                               plotOutput("byStockRel",     height = 320)
+                                        ),
+                                        column(width = 6,
+                                               downloadButton("downloadBarSamplingRel", "Download as image"),
+                                               plotOutput("bySamplingRel",  height = 320)
+                                        )
+                                      )
                                     )
-                                )
+                                   )
+                                 )
                              )
                     ),
                     tabPanel("Pareto charts",
@@ -211,12 +214,14 @@ ui = function() {
                              div(style = "margin-top: 1em;",
                                  fluidRow(
                                    column(width = 12,
-                                          plotOutput("byFleetGear")
+                                          downloadButton("downloadParetoByFleetGear", "Download as image"),
+                                          plotOutput("byFleetGear", height = 380)
                                    )
                                  ),
                                  fluidRow(
                                    column(width = 12,
-                                          plotOutput("bySamplingGear")
+                                          downloadButton("downloadParetoBySamplingGear", "Download as image"),
+                                          plotOutput("bySamplingGear", height = 380)
                                    )
                                  )
                              )
@@ -226,6 +231,7 @@ ui = function() {
                              div(style = "margin-top: 1em;",
                                  fluidRow(
                                    column(width = 6,
+                                          downloadButton("downloadMapBySamplingArea", "Download as image"),
                                           plotOutput("mapBySamplingArea", height = 640)
                                    ),
                                    column(width = 6,

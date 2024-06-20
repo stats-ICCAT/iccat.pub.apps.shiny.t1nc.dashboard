@@ -200,21 +200,20 @@ server = function(input, output, session) {
     filtered_data = validate_filtering(default_filter_data(NC_raw, input))
   })
   
-  output$bySpecies = 
-    renderPlot({
-      t1nc_data = filter_nc_data()
+  plot_bar_species = function(filtered_data, relative = FALSE) {
+    if(nrow(filtered_data) > 0) {
+      species_codes = sort(unique(filtered_data$Species))
       
-      if(nrow(t1nc_data) > 0) {
-        species_codes = sort(unique(t1nc_data$Species))
-        
-        SPECIES_COLORS = data.table(CODE = species_codes)
-        SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
-        SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
-        
+      SPECIES_COLORS = data.table(CODE = species_codes)
+      SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
+      SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
+      
+      return(
         iccat.pub.plots::t1nc.plot.bar(
-          t1nc_data,
+          filtered_data,
           category_column = "Species",
-          colors = SPECIES_COLORS
+          colors = SPECIES_COLORS,
+          relative = relative
         ) + 
         guides(
           fill =
@@ -223,110 +222,107 @@ server = function(input, output, session) {
             )
         ) + 
         labs(title = "Annual catches by species")
-      }
+      )
+    }
+  }
+  
+  output$bySpecies = 
+    renderPlot({
+      plot_bar_species(filter_nc_data())
     })
     
   output$bySpeciesRel = 
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0) {
-        species_codes = sort(unique(t1nc_data$Species))
-        
-        SPECIES_COLORS = data.table(CODE = species_codes)
-        SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
-        SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
-        
-        iccat.pub.plots::t1nc.plot.bar(
-          t1nc_data,
-          category_column = "Species",
-          colors = SPECIES_COLORS,
-          relative = TRUE
-        ) + 
-        guides(
-          fill =
-            guide_legend(
-              title = "Species"
-            )
-        ) + 
-        labs(title = "Annual catches by species")
-      }
+      plot_bar_species(filter_nc_data(), relative = TRUE)
     })
+  
+  plot_bar_catch_types = function(filtered_data, relative = FALSE) {
+    if(nrow(filtered_data) > 0) {
+      return(
+        iccat.pub.plots::t1nc.plot.bar_catch_types(filtered_data, relative = relative) + 
+        labs(title = "Annual catches by type")
+      )
+    }
+  }
   
   output$byCatchType = 
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data) + 
-        labs(title = "Annual catches by type")
+      plot_bar_catch_types(filter_nc_data())
     })
   
   output$byCatchTypeRel = 
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_catch_types(t1nc_data, relative = TRUE) + 
-        labs(title = "Annual catches by type")
+      plot_bar_catch_types(filter_nc_data(), relative = TRUE)
     })
+  
+  plot_bar_stocks = function(filtered_data, relative = FALSE) {
+    if(nrow(filtered_data) > 0) {
+      return(
+        iccat.pub.plots::t1nc.plot.bar_stocks(filtered_data, relative = relative) + 
+        labs(title = "Annual catches by stock")
+      )
+    }
+  }
   
   output$byStock = 
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data) + 
-        labs(title = "Annual catches by stock")
+      plot_bar_stocks(filter_nc_data())
     })
   
   output$byStockRel = 
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_stocks(t1nc_data, relative = TRUE) + 
-        labs(title = "Annual catches by stock")
+      plot_bar_stocks(filter_nc_data(), relative = TRUE)
     })
+  
+  plot_bar_sampling_areas = function(filtered_data, relative = FALSE) {
+    if(nrow(filtered_data) > 0) {
+      return(
+        iccat.pub.plots::t1nc.plot.bar_sampling_areas(filtered_data, relative = relative) + 
+        labs(title = "Annual catches by sampling area")
+      )
+    }
+  }
   
   output$bySampling = 
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_sampling_areas(t1nc_data) + 
-        labs(title = "Annual catches by sampling area")
+      plot_bar_sampling_areas(filter_nc_data())
     })
   
   output$bySamplingRel = 
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.bar_sampling_areas(t1nc_data, relative = TRUE) + 
-        labs(title = "Annual catches by sampling area")
+      plot_bar_sampling_areas(filter_nc_data(), relative = TRUE)
     })
+  
+  pareto_by_fleet_gear = function(filtered_data) {
+    if(nrow(filtered_data) > 0) {
+      return(
+        iccat.pub.plots::t1nc.plot.pareto_fleet_gears(filtered_data, vertical = FALSE, max_x = 30) + 
+        labs(title = "Cumulative catches by fleet and gear")
+      )
+    }
+  }
   
   output$byFleetGear =
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.pareto_fleet_gears(t1nc_data, vertical = FALSE, max_x = 30) + 
-        labs(title = "Cumulative catches by fleet and gear")
+      pareto_by_fleet_gear(filter_nc_data())
     })
   
-  output$bySamplingGear =
-    renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        iccat.pub.plots::t1nc.plot.pareto(t1nc_data, 
+  pareto_by_sampling_gear = function(filtered_data) {
+    if(nrow(filtered_data) > 0) {
+      return(
+        iccat.pub.plots::t1nc.plot.pareto(filtered_data, 
                                           x_column = "SampAreaCode", x_name = "Sampling area",
                                           category_column = "GearGrp", category_name = "Gear group", 
                                           category_levels = REF_GEAR_GROUPS$CODE, category_colors = iccat.pub.aes::REF_GEAR_GROUPS_COLORS,
                                           vertical = FALSE, max_x = 30, max_categories = 10, rotate_x_labels = FALSE) + 
-        labs(title = "Cumulative catches by sampling area and gear")
+          labs(title = "Cumulative catches by sampling area and gear")
+      )
+    }
+  }
+  
+  output$bySamplingGear =
+    renderPlot({
+      pareto_by_sampling_gear(filter_nc_data())
     })
   
   output$mapByStockArea =
@@ -338,13 +334,18 @@ server = function(input, output, session) {
         labs(title = "Cumulative catches by stock")
     })
   
+  map_by_sampling_area = function(filtered_data) {
+    if(nrow(filtered_data) > 0) {
+      return(
+        catch_map(filtered_data, geo_column = "SampAreaCode") + 
+        labs(title = "Cumulative catches by sampling area")
+      )
+    }
+  }
+  
   output$mapBySamplingArea =
     renderPlot({
-      t1nc_data = filter_nc_data()
-      
-      if(nrow(t1nc_data) > 0)
-        catch_map(t1nc_data, geo_column = "SampAreaCode") + 
-        labs(title = "Cumulative catches by sampling area")
+      map_by_sampling_area(filter_nc_data())
     })
   
   output$tabularData = 
@@ -484,6 +485,127 @@ server = function(input, output, session) {
       to_download = filter_nc_data()
       
       write.csv(to_download, gzfile(file), row.names = FALSE, na = "")
+    }
+  )
+  
+  output$downloadBarSpecies = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_BAR_SPECIES_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_species(filter_nc_data()), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarSpeciesRel = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_REL_CATCH_BAR_SPECIES_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_species(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarCatchType = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_BAR_TYPE_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_catch_types(filter_nc_data()), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarCatchTypeRel = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_REL_CATCH_BAR_TYPE_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_catch_types(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarStock = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_BAR_STOCK_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_stocks(filter_nc_data()), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarStockRel = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_REL_CATCH_BAR_STOCK_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_stocks(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarSampling = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_BAR_SAMPLING_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_sampling_areas(filter_nc_data()), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarSamplingRel = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_REL_CATCH_BAR_SAMPLING_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_sampling_areas(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadParetoByFleetGear = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_PARETO_FLEET_GEAR_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, pareto_by_fleet_gear(filter_nc_data()), width = 16, height = 8)
+    }
+  )
+  
+  output$downloadParetoBySamplingGear = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_PARETO_SAMPLING_GEAR_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, pareto_by_sampling_gear(filter_nc_data()), width = 16, height = 8)
+    }
+  )
+  
+  output$downloadMapBySamplingArea = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_MAP_SAMPLING_AREA_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, map_by_sampling_area(filter_nc_data()), width = 13, height = 12)
     }
   )
   
