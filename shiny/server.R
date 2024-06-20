@@ -443,7 +443,6 @@ server = function(input, output, session) {
       )
     })
   
-  
   serialize_last_update_date = function() {
     return(
       str_replace_all(META$LAST_UPDATE, "\\-", "")
@@ -487,4 +486,67 @@ server = function(input, output, session) {
       write.csv(to_download, gzfile(file), row.names = FALSE, na = "")
     }
   )
+  
+  ### Reference data
+  
+  default_render_datatable = function(table, colnames = NULL) {
+    renderDataTable({
+      DT::datatable(table,
+                    options = list(pageLength = 50,
+                                   autoWidth = FALSE),
+                    selection = "none",
+                    rownames = FALSE,
+                    colnames = colnames)
+    })
+  }
+  
+  output$ref_species = 
+    default_render_datatable(REF_SPECIES[, .(CODE, SCIENTIFIC_NAME, NAME_EN, NAME_ES, NAME_FR, SPECIES_GROUP, SPECIES_GROUP_ICCAT)], c("Code", "Scientific name", "English name", "Spanish name", "French name", "Species group", "Species group (ICCAT)"))
+  
+  output$ref_flags = 
+    default_render_datatable(REF_FLAGS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")], c("Code", "English name", "Spanish name", "French name"))
+  
+  output$ref_fleets = 
+    default_render_datatable(REF_FLEETS[, .(CODE, ID, FLAG_CODE, VESSEL_FLAG_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", DEPRECATED)], 
+                                          c("Code", "Identifier", "Flag code", "Vessel flag code", "English name", "Spanish name", "French name", "Deprecated?"))
+  
+  output$ref_CPCs =
+    default_render_datatable(REF_PARTIES[, .(CODE, STATUS_TYPE_CODE, ACCESSION_DATE, ENTTITY_TYPE_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                           c("Code", "CPC status", "Accession date", "Entity type", "English name", "Spanish name", "French name"))
+  
+  output$ref_CPC_codes =
+    default_render_datatable(REF_PARTY_STATUS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                                c("Code", "English name", "Spanish name", "French name"))
+  
+  output$ref_gear_groups =
+    default_render_datatable(REF_GEAR_GROUPS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                               c("Code", "English name", "Spanish name", "French name"))
+  
+  output$ref_gears =
+    default_render_datatable(REF_GEARS[, .(CODE, GEAR_GROUP_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", DISCARDS)],
+                                         c("Code", "Gear group code", "English name", "Spanish name", "French name", "Discards-specific"))
+  
+  output$ref_stocks =
+    default_render_datatable(REF_STOCK_AREAS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                               c("Code", "English name", "Spanish name", "French name"))
+  
+  output$ref_sampling_areas =
+    default_render_datatable(REF_SAMPLING_AREAS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                                  c("Code", "English name", "Spanish name", "French name"))
+  
+  output$ref_areas =
+    default_render_datatable(REF_AREAS[, .(CODE, QUADRANT_CODE, GEO_AREA_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                         c("Code", "Quadrant", "Area code", "English name", "Spanish name", "French name"))
+  
+  output$ref_fishing_zones =
+    default_render_datatable(REF_FISHING_ZONES[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                                 c("Code", "English name", "Spanish name", "French name"))
+  
+  output$ref_catch_types =
+    default_render_datatable(REF_CATCH_TYPES[, .(CODE, CATCH_TYPE_GROUP, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
+                                               c("Code", "Catch type group", "English name", "Spanish name", "French name"))
+  
+  output$ref_quality_levels =
+    default_render_datatable(REF_QUALITY_LEVELS[, .(CODE, QUALITY_GROUP_CODE, NAME_EN, DESCRIPTION_EN, NAME_ES = "--", DESCRIPTION_ES = "--", NAME_FR = "--", DESCRIPTION_FR = "--")],
+                                                 c("Code", "Quality group", "English name", "English description", "Spanish name", "Spanish description", "French name", "French description"))
 }

@@ -139,24 +139,6 @@ ui = function() {
                   actionButton("resetFilters", "Reset all filters", icon = icon("filter-circle-xmark"))
                 )
               ),
-              #fluidRow(
-              #  column(
-              #    width = 12,
-              #    h5(strong("Download current dataset:"))
-              #  )
-              #),
-              #fluidRow(
-              #  column(
-              #    width = 4,
-              #    downloadButton("downloadFiltered", "Filtered", style = "width: 100px")
-              #  ),
-              #  column(
-              #    width = 4,
-              #    span("as ", style = "vertical-align: -5px",
-              #         code(".csv.gz")
-              #    )
-              #  )
-              #),
               fluidRow(
                 column(
                   width = 12,
@@ -171,12 +153,6 @@ ui = function() {
               div(style = "margin-top: 1em;",
                   tabsetPanel(
                     selected = "Bar charts",
-                    tabPanel("Tabular data",
-                             icon = icon("list-alt"),
-                             div(id = "tabularData", style = "margin-top: 1em;",
-                                 dataTableOutput("tabularData")
-                             )
-                    ),
                     tabPanel("Bar charts",
                              icon = icon("chart-bar"),
                              div(style = "margin-top: 1em;",
@@ -256,6 +232,85 @@ ui = function() {
                                           div(id = "mapBySamplingAreaTable",
                                               dataTableOutput("mapBySamplingAreaTable")
                                           )
+                                   )
+                                 )
+                             )
+                    ),
+                    tabPanel("Tabular data",
+                             icon = icon("list-alt"),
+                             div(id = "tabularData",
+                                 dataTableOutput("tabularData")
+                             )
+                    ),
+                    tabPanel("Reference data", 
+                             icon = icon("link"),
+                             div(style = "margin-top: 1em;",
+                                 tabsetPanel(
+                                   type = "pills",
+                                   tabPanel("Species",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_species")
+                                            )
+                                   ),
+                                   tabPanel("Flags",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_flags")
+                                            )
+                                   ),
+                                   tabPanel("Fleets",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_fleets")
+                                            )
+                                   ),
+                                   tabPanel("CPCs",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_CPCs")
+                                            )
+                                   ),
+                                   tabPanel("CPC status",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_CPC_codes")
+                                            )
+                                   ),
+                                   tabPanel("Gear groups",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_gear_groups")
+                                            )
+                                   ),
+                                   tabPanel("Gears",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_gears")
+                                            )
+                                   ),
+                                   tabPanel("Stocks",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_stocks")
+                                            )
+                                   ),
+                                   tabPanel("Sampling areas",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_sampling_areas")
+                                            )
+                                   ),
+                                   tabPanel("Areas",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_areas")
+                                            )
+                                   ),
+                                   tabPanel("Fishing zones",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_fishing_zones")
+                                            )
+                                   ),
+                                   tabPanel("Catch types",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_catch_types")
+                                            )
+                                   ),
+                                   tabPanel("Quality levels",
+                                            div(class = "tableContainer",
+                                                dataTableOutput("ref_quality_levels")
+                                            )
                                    )
                                  )
                              )
