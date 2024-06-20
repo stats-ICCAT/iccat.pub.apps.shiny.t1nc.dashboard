@@ -507,12 +507,12 @@ server = function(input, output, session) {
     default_render_datatable(REF_FLAGS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")], c("Code", "English name", "Spanish name", "French name"))
   
   output$ref_fleets = 
-    default_render_datatable(REF_FLEETS[, .(CODE, ID, FLAG_CODE, VESSEL_FLAG_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", DEPRECATED)], 
-                                          c("Code", "Identifier", "Flag code", "Vessel flag code", "English name", "Spanish name", "French name", "Deprecated?"))
+    default_render_datatable(REF_FLEETS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", ID, FLAG_CODE, VESSEL_FLAG_CODE, DEPRECATED)], 
+                                          c("Code", "English name", "Spanish name", "French name", "Identifier", "Flag code", "Vessel flag code", "Deprecated?"))
   
   output$ref_CPCs =
-    default_render_datatable(REF_PARTIES[, .(CODE, STATUS_TYPE_CODE, ACCESSION_DATE, ENTTITY_TYPE_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
-                                           c("Code", "CPC status", "Accession date", "Entity type", "English name", "Spanish name", "French name"))
+    default_render_datatable(REF_PARTIES[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", STATUS_TYPE_CODE, ACCESSION_DATE = as.character(ACCESSION_DATE), ENTTITY_TYPE_CODE)],
+                                           c("Code", "English name", "Spanish name", "French name", "CPC status", "Accession date", "Entity type"))
   
   output$ref_CPC_codes =
     default_render_datatable(REF_PARTY_STATUS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
@@ -523,8 +523,8 @@ server = function(input, output, session) {
                                                c("Code", "English name", "Spanish name", "French name"))
   
   output$ref_gears =
-    default_render_datatable(REF_GEARS[, .(CODE, GEAR_GROUP_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", DISCARDS)],
-                                         c("Code", "Gear group code", "English name", "Spanish name", "French name", "Discards-specific"))
+    default_render_datatable(REF_GEARS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", GEAR_GROUP_CODE, DISCARDS)],
+                                         c("Code", "English name", "Spanish name", "French name", "Gear group code", "Discards-specific"))
   
   output$ref_stocks =
     default_render_datatable(REF_STOCK_AREAS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
@@ -535,18 +535,18 @@ server = function(input, output, session) {
                                                   c("Code", "English name", "Spanish name", "French name"))
   
   output$ref_areas =
-    default_render_datatable(REF_AREAS[, .(CODE, QUADRANT_CODE, GEO_AREA_CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
-                                         c("Code", "Quadrant", "Area code", "English name", "Spanish name", "French name"))
+    default_render_datatable(REF_AREAS[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", QUADRANT_CODE, GEO_AREA_CODE)],
+                                         c("Code", "English name", "Spanish name", "French name", "Quadrant", "Area code"))
   
   output$ref_fishing_zones =
     default_render_datatable(REF_FISHING_ZONES[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
                                                  c("Code", "English name", "Spanish name", "French name"))
   
   output$ref_catch_types =
-    default_render_datatable(REF_CATCH_TYPES[, .(CODE, CATCH_TYPE_GROUP, NAME_EN, NAME_ES = "--", NAME_FR = "--")],
-                                               c("Code", "Catch type group", "English name", "Spanish name", "French name"))
+    default_render_datatable(REF_CATCH_TYPES[, .(CODE, NAME_EN, NAME_ES = "--", NAME_FR = "--", CATCH_TYPE_GROUP)],
+                                               c("Code", "English name", "Spanish name", "French name", "Catch type group"))
   
   output$ref_quality_levels =
-    default_render_datatable(REF_QUALITY_LEVELS[, .(CODE, QUALITY_GROUP_CODE, NAME_EN, DESCRIPTION_EN, NAME_ES = "--", DESCRIPTION_ES = "--", NAME_FR = "--", DESCRIPTION_FR = "--")],
-                                                 c("Code", "Quality group", "English name", "English description", "Spanish name", "Spanish description", "French name", "French description"))
+    default_render_datatable(REF_QUALITY_LEVELS[, .(CODE, NAME_EN, DESCRIPTION_EN, NAME_ES = "--", DESCRIPTION_ES = "--", NAME_FR = "--", DESCRIPTION_FR = "--", QUALITY_GROUP_CODE)],
+                                                 c("Code", "English name", "English description", "Spanish name", "Spanish description", "French name", "French description", "Quality group"))
 }
