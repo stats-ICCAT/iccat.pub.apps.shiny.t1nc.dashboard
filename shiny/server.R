@@ -180,7 +180,17 @@ server = function(input, output, session) {
     filtered_rows = nrow(filtered_data)
     
     if(filtered_rows == 0) {
-      shinyjs::disable("downloadFiltered")
+      shinyjs::disable("downloadBarSpecies")
+      shinyjs::disable("downloadBarCatchType")
+      shinyjs::disable("downloadBarStock")
+      shinyjs::disable("downloadBarSampling")
+      shinyjs::disable("downloadBarSpeciesRel")
+      shinyjs::disable("downloadBarCatchTypeRel")
+      shinyjs::disable("downloadBarStockRel")
+      shinyjs::disable("downloadBarSamplingRel")
+      shinyjs::disable("downloadParetoByFleetGear")
+      shinyjs::disable("downloadParetoBySamplingGear")
+      shinyjs::disable("downloadMapBySamplingArea")
       
       showModal(modalDialog(title  = "No matching records", 
                             footer = NULL,
@@ -188,7 +198,17 @@ server = function(input, output, session) {
                             fade = FALSE,
                             "Please refine your current filtering criteria!"))
     } else {
-      shinyjs::enable("downloadFiltered")
+      shinyjs::enable("downloadBarSpecies")
+      shinyjs::enable("downloadBarCatchType")
+      shinyjs::enable("downloadBarStock")
+      shinyjs::enable("downloadBarSampling")
+      shinyjs::enable("downloadBarSpeciesRel")
+      shinyjs::enable("downloadBarCatchTypeRel")
+      shinyjs::enable("downloadBarStockRel")
+      shinyjs::enable("downloadBarSamplingRel")
+      shinyjs::enable("downloadParetoByFleetGear")
+      shinyjs::enable("downloadParetoBySamplingGear")
+      shinyjs::enable("downloadMapBySamplingArea")
     }
     
     #validate(need(filtered_rows > 0, "Current filtering criteria do not identify any valid record!"))
