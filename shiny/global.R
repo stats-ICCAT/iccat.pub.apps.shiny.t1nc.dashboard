@@ -103,7 +103,8 @@ UI_select_input = function(id, label, choices, selected = NA) {
   )
 }
 
-INITIAL_NUM_ENTRIES = 45
+INITIAL_NUM_ENTRIES    = 50
+INITIAL_NUM_ENTRIES_CL = 45
 
 set_log_level(LOG_INFO)
 

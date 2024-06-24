@@ -390,7 +390,7 @@ server = function(input, output, session) {
                           SPECIES_CODE,
                           CATCH)],
             options = list(
-              pageLength = 50,
+              pageLength = INITIAL_NUM_ENTRIES,
               autoWidth = TRUE,
               scrollX = TRUE,
               dom = "ltipr" # To remove the 'search box' - see: https://rstudio.github.io/DT/options.html and https://datatables.net/reference/option/dom
@@ -634,7 +634,7 @@ server = function(input, output, session) {
   default_render_datatable = function(table, colnames = NULL) {
     renderDataTable({
       DT::datatable(table,
-                    options = list(pageLength = 50,
+                    options = list(pageLength = INITIAL_NUM_ENTRIES_CL,
                                    autoWidth = FALSE),
                     selection = "none",
                     rownames = FALSE,
