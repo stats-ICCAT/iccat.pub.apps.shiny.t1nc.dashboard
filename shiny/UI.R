@@ -214,13 +214,13 @@ ui = function() {
                                  fluidRow(
                                    column(width = 12,
                                           downloadButton("downloadParetoByFleetGear", "Download as image"),
-                                          plotOutput("byFleetGear", height = 380)
+                                          plotOutput("byFleetGear", height = 360)
                                    )
                                  ),
                                  fluidRow(
                                    column(width = 12,
                                           downloadButton("downloadParetoBySamplingGear", "Download as image"),
-                                          plotOutput("bySamplingGear", height = 380)
+                                          plotOutput("bySamplingGear", height = 360)
                                    )
                                  )
                              )
