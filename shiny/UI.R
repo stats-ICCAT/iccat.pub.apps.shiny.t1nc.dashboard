@@ -150,8 +150,7 @@ ui = function() {
             ),
             column(
               width = 10,
-              div(style = "margin-top: 1em;",
-                  tabsetPanel(
+              div(tabsetPanel(
                     selected = "Bar charts",
                     tabPanel("Bar charts",
                              icon = icon("chart-bar"),
