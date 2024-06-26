@@ -160,23 +160,31 @@ ui = function() {
                                    tabPanel("Absolute",
                                     div(style = "margin-top: 1em;",
                                       fluidRow(
-                                        column(width = 6,
+                                        column(width = 4,
                                                downloadButton("downloadBarSpecies", "Download as image"),
                                                plotOutput("bySpecies",   height = 320)
                                         ),
-                                        column(width = 6,
+                                        column(width = 4,
                                                downloadButton("downloadBarCatchType", "Download as image"),
                                                plotOutput("byCatchType", height = 320)
+                                        ),
+                                        column(width = 4, 
+                                               downloadButton("downloadBarStock", "Download as image"),
+                                               plotOutput("byStock",     height = 320)
                                         )
                                       ),
                                       fluidRow(
-                                        column(width = 6, 
-                                               downloadButton("downloadBarStock", "Download as image"),
-                                               plotOutput("byStock",     height = 320)
+                                        column(width = 4, 
+                                               downloadButton("downloadBarGearGroup", "Download as image"),
+                                               plotOutput("byGearGroup",   height = 320)
                                         ),
-                                        column(width = 6,
+                                        column(width = 4,
+                                               downloadButton("downloadBarFishingZone", "Download as image"),
+                                               plotOutput("byFishingZone", height = 320)
+                                        ),
+                                        column(width = 4,
                                                downloadButton("downloadBarSampling", "Download as image"),
-                                               plotOutput("bySampling",  height = 320)
+                                               plotOutput("bySampling",    height = 320)
                                         )
                                       )
                                      )
@@ -184,23 +192,31 @@ ui = function() {
                                    tabPanel("Relative",
                                     div(style = "margin-top: 1em;",
                                       fluidRow(
-                                        column(width = 6,
+                                        column(width = 4,
                                                downloadButton("downloadBarSpeciesRel", "Download as image"),
                                                plotOutput("bySpeciesRel",   height = 320)
                                         ),
-                                        column(width = 6,
+                                        column(width = 4,
                                                downloadButton("downloadBarCatchTypeRel", "Download as image"),
                                                plotOutput("byCatchTypeRel", height = 320)
+                                        ),
+                                        column(width = 4, 
+                                               downloadButton("downloadBarStockRel", "Download as image"),
+                                               plotOutput("byStockRel",     height = 320)
                                         )
                                       ),
                                       fluidRow(
-                                        column(width = 6, 
-                                               downloadButton("downloadBarStockRel", "Download as image"),
-                                               plotOutput("byStockRel",     height = 320)
+                                        column(width = 4, 
+                                               downloadButton("downloadBarGearGroupRel", "Download as image"),
+                                               plotOutput("byGearGroupRel",   height = 320)
                                         ),
-                                        column(width = 6,
+                                        column(width = 4,
+                                               downloadButton("downloadBarFishingZoneRel", "Download as image"),
+                                               plotOutput("byFishingZoneRel", height = 320)
+                                        ),
+                                        column(width = 4,
                                                downloadButton("downloadBarSamplingRel", "Download as image"),
-                                               plotOutput("bySamplingRel",  height = 320)
+                                               plotOutput("bySamplingRel",    height = 320)
                                         )
                                       )
                                     )

@@ -120,6 +120,7 @@ server = function(input, output, session) {
                           Species = SPECIES_CODE, 
                           GearGrp = GEAR_GROUP_CODE, 
                           CatchTypeCode = CATCH_TYPE_CODE, 
+                          FishingZone = FISHING_ZONE_CODE,
                           Qty_t = CATCH)])
     else
       return(filtered)
@@ -181,11 +182,15 @@ server = function(input, output, session) {
     
     if(filtered_rows == 0) {
       shinyjs::disable("downloadBarSpecies")
+      shinyjs::disable("downloadBarGearGroup")
       shinyjs::disable("downloadBarCatchType")
+      shinyjs::disable("downloadBarFishingZone")
       shinyjs::disable("downloadBarStock")
       shinyjs::disable("downloadBarSampling")
       shinyjs::disable("downloadBarSpeciesRel")
+      shinyjs::disable("downloadBarGearGroupRel")
       shinyjs::disable("downloadBarCatchTypeRel")
+      shinyjs::disable("downloadBarFishingZoneRel")
       shinyjs::disable("downloadBarStockRel")
       shinyjs::disable("downloadBarSamplingRel")
       shinyjs::disable("downloadParetoByFleetGear")
@@ -199,11 +204,15 @@ server = function(input, output, session) {
                             "Please refine your current filtering criteria!"))
     } else {
       shinyjs::enable("downloadBarSpecies")
+      shinyjs::enable("downloadBarGearGroup")
       shinyjs::enable("downloadBarCatchType")
+      shinyjs::enable("downloadBarFishingZone")
       shinyjs::enable("downloadBarStock")
       shinyjs::enable("downloadBarSampling")
       shinyjs::enable("downloadBarSpeciesRel")
+      shinyjs::enable("downloadBarGearGroupRel")
       shinyjs::enable("downloadBarCatchTypeRel")
+      shinyjs::enable("downloadBarFishingZoneRel")
       shinyjs::enable("downloadBarStockRel")
       shinyjs::enable("downloadBarSamplingRel")
       shinyjs::enable("downloadParetoByFleetGear")
@@ -256,6 +265,28 @@ server = function(input, output, session) {
       plot_bar_species(filter_nc_data(), relative = TRUE)
     })
   
+  plot_bar_gear_groups = function(filtered_data, relative = FALSE) {
+    if(nrow(filtered_data) > 0) {
+      return(
+        iccat.pub.plots::t1nc.plot.bar_gears(
+          filtered_data,
+          relative = relative
+        ) + 
+        labs(title = "Annual catches by gear group")
+      )
+    }
+  }
+  
+  output$byGearGroup = 
+    renderPlot({
+      plot_bar_gear_groups(filter_nc_data())
+    })
+  
+  output$byGearGroupRel = 
+    renderPlot({
+      plot_bar_gear_groups(filter_nc_data(), relative = TRUE)
+    })
+  
   plot_bar_catch_types = function(filtered_data, relative = FALSE) {
     if(nrow(filtered_data) > 0) {
       return(
@@ -273,6 +304,42 @@ server = function(input, output, session) {
   output$byCatchTypeRel = 
     renderPlot({
       plot_bar_catch_types(filter_nc_data(), relative = TRUE)
+    })
+  
+  plot_bar_fishing_zones = function(filtered_data, relative = FALSE) {
+    if(nrow(filtered_data) > 0) {
+      fishing_zone_codes = sort(unique(filtered_data$FishingZone))
+      
+      FISHING_ZONES_COLORS = data.table(CODE = fishing_zone_codes)
+      FISHING_ZONES_COLORS$FILL = hue_pal()(nrow(FISHING_ZONES_COLORS))
+      FISHING_ZONES_COLORS[, COLOR := darken(FILL, amount = .3)]
+      
+      return(
+        iccat.pub.plots::t1nc.plot.bar(
+          filtered_data,
+          category_column = "FishingZone",
+          colors = FISHING_ZONES_COLORS,
+          relative = relative
+        ) + 
+          guides(
+            fill =
+              guide_legend(
+                title = "Fishing zone"
+              )
+          ) + 
+          labs(title = "Annual catches by fishing zone")
+      )
+    }
+  }
+  
+  output$byFishingZone = 
+    renderPlot({
+      plot_bar_fishing_zones(filter_nc_data())
+    })
+  
+  output$byFishingZoneRel = 
+    renderPlot({
+      plot_bar_fishing_zones(filter_nc_data(), relative = TRUE)
     })
   
   plot_bar_stocks = function(filtered_data, relative = FALSE) {
@@ -530,6 +597,28 @@ server = function(input, output, session) {
     }
   )
   
+  output$downloadBarGearGroup = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_BAR_GEAR_GROUP_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_gear_groups(filter_nc_data()), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarGearGroupRel = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_REL_CATCH_BAR_GEAR_GROUP_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_gear_groups(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+    }
+  )
+  
   output$downloadBarCatchType = downloadHandler(
     filename = function() {
       filename_prefix = paste0("ICCAT_T1NC_CATCH_BAR_TYPE_", serialize_last_update_date())
@@ -549,6 +638,28 @@ server = function(input, output, session) {
     },
     content = function(file) {
       ggsave(filename = file, plot_bar_catch_types(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarFishingZone = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_CATCH_BAR_FISHING_ZONE_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_fishing_zones(filter_nc_data()), width = 16, height = 9)
+    }
+  )
+  
+  output$downloadBarFishingZoneRel = downloadHandler(
+    filename = function() {
+      filename_prefix = paste0("ICCAT_T1NC_REL_CATCH_BAR_FISHING_ZONE_", serialize_last_update_date())
+      
+      return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
+    },
+    content = function(file) {
+      ggsave(filename = file, plot_bar_fishing_zones(filter_nc_data(), relative = TRUE), width = 16, height = 9)
     }
   )
   
