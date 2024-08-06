@@ -257,12 +257,20 @@ server = function(input, output, session) {
   
   output$bySpecies = 
     renderPlot({
-      plot_bar_species(filter_nc_data())
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise({
+        plot_bar_species(filtered_data)
+      }) %...>% { . }
     })
-    
+  
   output$bySpeciesRel = 
     renderPlot({
-      plot_bar_species(filter_nc_data(), relative = TRUE)
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise({
+        plot_bar_species(filtered_data, relative = TRUE)
+      }) %...>% { . }
     })
   
   plot_bar_gear_groups = function(filtered_data, relative = FALSE) {
@@ -279,31 +287,47 @@ server = function(input, output, session) {
   
   output$byGearGroup = 
     renderPlot({
-      plot_bar_gear_groups(filter_nc_data())
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_gear_groups(filtered_data)
+      }) %...>% { . }
     })
   
   output$byGearGroupRel = 
     renderPlot({
-      plot_bar_gear_groups(filter_nc_data(), relative = TRUE)
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_gear_groups(filtered_data, relative = TRUE)
+      }) %...>% { . }
     })
   
   plot_bar_catch_types = function(filtered_data, relative = FALSE) {
     if(nrow(filtered_data) > 0) {
       return(
         iccat.pub.plots::t1nc.plot.bar_catch_types(filtered_data, relative = relative) + 
-        labs(title = "Annual catches by type")
+          labs(title = "Annual catches by type")
       )
     }
   }
   
   output$byCatchType = 
     renderPlot({
-      plot_bar_catch_types(filter_nc_data())
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_catch_types(filtered_data)
+      }) %...>% { . }
     })
   
   output$byCatchTypeRel = 
     renderPlot({
-      plot_bar_catch_types(filter_nc_data(), relative = TRUE)
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_catch_types(filtered_data, relative = TRUE)
+      }) %...>% { . }
     })
   
   plot_bar_fishing_zones = function(filtered_data, relative = FALSE) {
@@ -334,64 +358,92 @@ server = function(input, output, session) {
   
   output$byFishingZone = 
     renderPlot({
-      plot_bar_fishing_zones(filter_nc_data())
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise({
+        plot_bar_fishing_zones(filtered_data)
+      }) %...>% { . }
     })
   
-  output$byFishingZoneRel = 
+  output$byFishingZoneRel =
     renderPlot({
-      plot_bar_fishing_zones(filter_nc_data(), relative = TRUE)
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise({
+        plot_bar_fishing_zones(filtered_data, relative = TRUE)
+      }) %...>% { . }
     })
   
   plot_bar_stocks = function(filtered_data, relative = FALSE) {
     if(nrow(filtered_data) > 0) {
       return(
         iccat.pub.plots::t1nc.plot.bar_stocks(filtered_data, relative = relative) + 
-        labs(title = "Annual catches by stock")
+          labs(title = "Annual catches by stock")
       )
     }
   }
   
   output$byStock = 
     renderPlot({
-      plot_bar_stocks(filter_nc_data())
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_stocks(filtered_data)
+      }) %...>% { . }
     })
   
   output$byStockRel = 
     renderPlot({
-      plot_bar_stocks(filter_nc_data(), relative = TRUE)
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_stocks(filtered_data, relative = TRUE)
+      }) %...>% { . }
     })
   
   plot_bar_sampling_areas = function(filtered_data, relative = FALSE) {
     if(nrow(filtered_data) > 0) {
       return(
         iccat.pub.plots::t1nc.plot.bar_sampling_areas(filtered_data, relative = relative) + 
-        labs(title = "Annual catches by sampling area")
+          labs(title = "Annual catches by sampling area")
       )
     }
   }
   
   output$bySampling = 
     renderPlot({
-      plot_bar_sampling_areas(filter_nc_data())
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_sampling_areas(filtered_data)
+      }) %...>% { . }
     })
   
   output$bySamplingRel = 
     renderPlot({
-      plot_bar_sampling_areas(filter_nc_data(), relative = TRUE)
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("data.table"), {
+        plot_bar_sampling_areas(filtered_data, relative = TRUE)
+      }) %...>% { . }
     })
   
   pareto_by_fleet_gear = function(filtered_data) {
     if(nrow(filtered_data) > 0) {
       return(
         iccat.pub.plots::t1nc.plot.pareto_fleet_gears(filtered_data, vertical = FALSE, max_x = 30) + 
-        labs(title = "Cumulative catches by fleet and gear")
+          labs(title = "Cumulative catches by fleet and gear")
       )
     }
   }
   
   output$byFleetGear =
-    renderPlot({
-      pareto_by_fleet_gear(filter_nc_data())
+    renderPlot({        
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise(packages = c("iccat.pub.data"), {
+        pareto_by_fleet_gear(filtered_data)
+      }) %...>% { . }
     })
   
   pareto_by_sampling_gear = function(filtered_data) {
@@ -408,31 +460,30 @@ server = function(input, output, session) {
   }
   
   output$bySamplingGear =
-    renderPlot({
-      pareto_by_sampling_gear(filter_nc_data())
-    })
-  
-  output$mapByStockArea =
-    renderPlot({
-      t1nc_data = filter_nc_data()
+    renderPlot({        
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      if(nrow(t1nc_data) > 0)
-        catch_map(t1nc_data, geo_column = "Stock") + 
-        labs(title = "Cumulative catches by stock")
+      future_promise({
+        pareto_by_sampling_gear(filtered_data)
+      }) %...>% { . }
     })
   
   map_by_sampling_area = function(filtered_data) {
     if(nrow(filtered_data) > 0) {
       return(
         catch_map(filtered_data, geo_column = "SampAreaCode") + 
-        labs(title = "Cumulative catches by sampling area")
+          labs(title = "Cumulative catches by sampling area")
       )
     }
   }
   
   output$mapBySamplingArea =
     renderPlot({
-      map_by_sampling_area(filter_nc_data())
+      filtered_data = validate_filtering(default_filter_data(NC_raw, input))
+      
+      future_promise({
+        map_by_sampling_area(filtered_data)
+      }) %...>% { . }
     })
   
   output$tabularData = 

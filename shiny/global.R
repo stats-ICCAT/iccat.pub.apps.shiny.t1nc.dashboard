@@ -16,6 +16,11 @@ library(dplyr)
 
 #library(plotly)
 
+library(promises)
+library(future)
+
+plan(multisession)
+
 options(scipen = 9999)
 
 # THIS IS ***FUNDAMENTAL*** TO HAVE THE DOCKER CONTAINER CORRECTLY LOAD THE .RData FILE WITH THE ORIGINAL UTF-8 ENCODING
