@@ -387,7 +387,7 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_stocks(filtered_data)
       }) %...>% { . }
     })
@@ -441,7 +441,7 @@ server = function(input, output, session) {
     renderPlot({        
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("iccat.pub.data"), {
+      future_promise(packages = c("iccat.pub.data", "colorspace"), {
         pareto_by_fleet_gear(filtered_data)
       }) %...>% { . }
     })
