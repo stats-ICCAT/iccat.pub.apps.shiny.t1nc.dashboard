@@ -396,7 +396,7 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_stocks(filtered_data, relative = TRUE)
       }) %...>% { . }
     })
@@ -414,7 +414,7 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_sampling_areas(filtered_data)
       }) %...>% { . }
     })
@@ -423,7 +423,7 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_sampling_areas(filtered_data, relative = TRUE)
       }) %...>% { . }
     })
@@ -441,7 +441,7 @@ server = function(input, output, session) {
     renderPlot({        
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("iccat.pub.data", "colorspace"), {
+      future_promise(packages = c("iccat.pub.data", "scales", "colorspace"), {
         pareto_by_fleet_gear(filtered_data)
       }) %...>% { . }
     })
@@ -463,7 +463,7 @@ server = function(input, output, session) {
     renderPlot({        
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise({
+      future_promise(packages = c("iccat.pub.data", "scales", "colorspace"), {
         pareto_by_sampling_gear(filtered_data)
       }) %...>% { . }
     })

@@ -5,8 +5,7 @@ SPECIES_MAPPINGS =
     connection = DB_GIS(server = "ATENEA\\SQL22"),
     statement = "
     SELECT *
-    FROM
-      NewGIS.dbo.SPECIES_MAPPING_T2CE"
+    FROM NewGIS.dbo.SPECIES_MAPPING_T2CE"
   )
 
 SPECIES_ORDERED = c("BFT", "ALB", # Temperate tunas
@@ -25,7 +24,7 @@ SPECIES_ORDERED = c("BFT", "ALB", # Temperate tunas
 # Loads the data from dbSTAT
 NC = 
   tabular_query(
-    connection = DB_GIS(server = "ATENEA\\SQL22"),
+    connection = DB_T1(server = "ICARO\\SQL16"),
     statement = "SELECT * FROM V_T1NC_WEB WHERE YEAR >= 1950"
   )
 
@@ -176,9 +175,9 @@ NC_l = NC[, .(DATASET_ID, STRATA_ID,
                                                            STOCK_AREA_CODE, SAMPLING_AREA_CODE, AREA_CODE, FISHING_ZONE_CODE,
                                                            CATCH_TYPE_CODE, QUALITY_CODE)]
 
-META = list(LAST_UPDATE = "2024-01-31", 
-            FILENAME_LONG = "ICCAT_T1NC_20240131_raw_full.csv.gz",
-            FILENAME_WIDE = "ICCAT_T1NC_20240131_full.csv.gz")
+META = list(LAST_UPDATE = "2024-09-10", 
+            FILENAME_LONG = "ICCAT_T1NC_20240910_raw_full.csv.gz",
+            FILENAME_WIDE = "ICCAT_T1NC_20240910_full.csv.gz")
 
 save("META", file = "./shiny/META.RData", compress = "gzip")
 save("NC",   file = "./shiny/NC.RData",   compress = "gzip")
