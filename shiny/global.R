@@ -125,3 +125,11 @@ MAX_YEAR = max(NC_raw$YEAR)
 #  )
 
 INFO(paste0(nrow(NC_raw), " rows loaded from NC"))
+
+### ICCAT LOGO
+
+ICCAT_LOGO = png::readPNG("./www/iccat-logo.png")
+ICCAT_LOGO_RASTER = grid::rasterGrob(ICCAT_LOGO, interpolate = TRUE,
+                                     width = unit(0.07, "npc"),
+                                     x = unit(0.08, "npc"), y = unit(.98, "npc"),
+                                     hjust = 1, vjust = 1)

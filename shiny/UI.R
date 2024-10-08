@@ -153,76 +153,53 @@ ui = function() {
               div(tabsetPanel(
                     selected = "Bar charts",
                     tabPanel("Bar charts",
-                             icon = icon("chart-bar"),
-                             div(style = "margin-top: 1em;",
-                                 tabsetPanel(
-                                   type = "pills",
-                                   tabPanel("Absolute",
-                                    div(style = "margin-top: 1em;",
-                                      fluidRow(
-                                        column(width = 4,
-                                               downloadButton("downloadBarSpecies", "Download as image"),
-                                               plotOutput("bySpecies",   height = 320)
-                                        ),
-                                        column(width = 4,
-                                               downloadButton("downloadBarCatchType", "Download as image"),
-                                               plotOutput("byCatchType", height = 320)
-                                        ),
-                                        column(width = 4, 
-                                               downloadButton("downloadBarStock", "Download as image"),
-                                               plotOutput("byStock",     height = 320)
-                                        )
-                                      ),
-                                      fluidRow(
-                                        column(width = 4, 
-                                               downloadButton("downloadBarGearGroup", "Download as image"),
-                                               plotOutput("byGearGroup",   height = 320)
-                                        ),
-                                        column(width = 4,
-                                               downloadButton("downloadBarFishingZone", "Download as image"),
-                                               plotOutput("byFishingZone", height = 320)
-                                        ),
-                                        column(width = 4,
-                                               downloadButton("downloadBarSampling", "Download as image"),
-                                               plotOutput("bySampling",    height = 320)
-                                        )
-                                      )
-                                     )
-                                   ),
-                                   tabPanel("Relative",
-                                    div(style = "margin-top: 1em;",
-                                      fluidRow(
-                                        column(width = 4,
-                                               downloadButton("downloadBarSpeciesRel", "Download as image"),
-                                               plotOutput("bySpeciesRel",   height = 320)
-                                        ),
-                                        column(width = 4,
-                                               downloadButton("downloadBarCatchTypeRel", "Download as image"),
-                                               plotOutput("byCatchTypeRel", height = 320)
-                                        ),
-                                        column(width = 4, 
-                                               downloadButton("downloadBarStockRel", "Download as image"),
-                                               plotOutput("byStockRel",     height = 320)
-                                        )
-                                      ),
-                                      fluidRow(
-                                        column(width = 4, 
-                                               downloadButton("downloadBarGearGroupRel", "Download as image"),
-                                               plotOutput("byGearGroupRel",   height = 320)
-                                        ),
-                                        column(width = 4,
-                                               downloadButton("downloadBarFishingZoneRel", "Download as image"),
-                                               plotOutput("byFishingZoneRel", height = 320)
-                                        ),
-                                        column(width = 4,
-                                               downloadButton("downloadBarSamplingRel", "Download as image"),
-                                               plotOutput("bySamplingRel",    height = 320)
-                                        )
-                                      )
-                                    )
-                                   )
-                                 )
-                             )
+                      icon = icon("chart-bar"),
+                      div(style = "margin-top: .5em;",
+                        tabsetPanel(
+                          tabPanel("By gear group",
+                                   style = "margin-top: .5em;",
+                                   downloadButton("downloadBarGearGroup", "Download as image"),
+                                   plotOutput("byGearGroup",    height = "320px"),
+                                   downloadButton("downloadBarGearGroupRel", "Download as image"),
+                                   plotOutput("byGearGroupRel", height = "320px")
+                          ),
+                          tabPanel("By catch type",
+                                   style = "margin-top: .5em;",
+                                   downloadButton("downloadBarCatchType", "Download as image"),
+                                   plotOutput("byCatchType",    height = "320px"),
+                                   downloadButton("downloadBarCatchTypeRel", "Download as image"),
+                                   plotOutput("byCatchTypeRel", height = "320px")
+                          ),
+                          tabPanel("By species",
+                                   style = "margin-top: .5em;",
+                                   downloadButton("downloadBarSpecies", "Download as image"),  
+                                   plotOutput("bySpecies",    height = "320px"),
+                                   downloadButton("downloadBarSpeciesRel", "Download as image"),
+                                   plotOutput("bySpeciesRel", height = "320px")
+                          ),
+                          tabPanel("By fishing zone",
+                                   style = "margin-top: .5em;",
+                                   downloadButton("downloadBarFishingZone", "Download as image"),
+                                   plotOutput("byFishingZone",    height = "320px"),
+                                   downloadButton("downloadBarFishingZoneRel", "Download as image"),
+                                   plotOutput("byFishingZoneRel", height = "320px")
+                          ),
+                          tabPanel("By stock",
+                                   style = "margin-top: .5em;",
+                                   downloadButton("downloadBarStock", "Download as image"),
+                                   plotOutput("byStock",    height = "320px"),
+                                   downloadButton("downloadBarStockRel", "Download as image"),
+                                   plotOutput("byStockRel", height = "320px")
+                          ),
+                          tabPanel("By sampling area",
+                                   style = "margin-top: .5em;",
+                                   downloadButton("downloadBarSampling", "Download as image"),
+                                   plotOutput("bySampling",    height = "320px"),
+                                   downloadButton("downloadBarSamplingRel", "Download as image"),
+                                   plotOutput("bySamplingRel", height = "320px")
+                          )
+                        )
+                      )
                     ),
                     tabPanel("Pareto charts",
                              icon = icon("chart-line"),

@@ -37,7 +37,7 @@ server = function(input, output, session) {
     
     start = Sys.time()
     
-    filtered = data
+    filtered = data 
     
     has_years = length(input$years) == 2
     
@@ -633,7 +633,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_species(filter_nc_data()), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_species(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -644,7 +644,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_species(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_species(filter_nc_data(), relative = TRUE) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -655,7 +655,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_gear_groups(filter_nc_data()), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_gear_groups(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -666,7 +666,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_gear_groups(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_gear_groups(filter_nc_data(), relative = TRUE) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -677,7 +677,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_catch_types(filter_nc_data()), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_catch_types(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -688,7 +688,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_catch_types(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_catch_types(filter_nc_data(), relative = TRUE) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -699,7 +699,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_fishing_zones(filter_nc_data()), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_fishing_zones(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -710,7 +710,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_fishing_zones(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_fishing_zones(filter_nc_data(), relative = TRUE) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -721,7 +721,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_stocks(filter_nc_data()), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_stocks(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -732,7 +732,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_stocks(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_stocks(filter_nc_data(), relative = TRUE) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -743,7 +743,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_sampling_areas(filter_nc_data()), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_sampling_areas(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -754,7 +754,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, plot_bar_sampling_areas(filter_nc_data(), relative = TRUE), width = 16, height = 9)
+      ggsave(filename = file, plot_bar_sampling_areas(filter_nc_data(), relative = TRUE) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 9)
     }
   )
   
@@ -765,7 +765,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, pareto_by_fleet_gear(filter_nc_data()), width = 16, height = 8)
+      ggsave(filename = file, pareto_by_fleet_gear(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 8)
     }
   )
   
@@ -776,7 +776,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, pareto_by_sampling_gear(filter_nc_data()), width = 16, height = 8)
+      ggsave(filename = file, pareto_by_sampling_gear(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 16, height = 8)
     }
   )
   
@@ -787,7 +787,7 @@ server = function(input, output, session) {
       return(paste0(filename_prefix, "_", get_filename_components(input), ".png"))
     },
     content = function(file) {
-      ggsave(filename = file, map_by_sampling_area(filter_nc_data()), width = 13, height = 12)
+      ggsave(filename = file, map_by_sampling_area(filter_nc_data()) + annotation_custom(grob = ICCAT_LOGO_RASTER), width = 13, height = 12)
     }
   )
   

@@ -1,3 +1,4 @@
 .Rhistory
 .Rbuildignore
 .Rproj.user
+**/rsconnect/**
