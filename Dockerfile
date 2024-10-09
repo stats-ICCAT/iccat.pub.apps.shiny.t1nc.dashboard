@@ -2,6 +2,12 @@ FROM rocker/shiny:latest
 
 WORKDIR /
 
+RUN apt-get update -qq
+RUN apt-get -y -f install \
+    libudunits2-dev \
+    libproj-dev \
+    libgdal-dev
+    
 # Installs all required R packages (and their dependencies) starting from those hat are available on the remote repo
 # and then from the locally available libs (for the time being)
 RUN install2.r --error --skipinstalled \
@@ -16,6 +22,7 @@ RUN install2.r --error --skipinstalled \
     mapplots \ 
     maps \
     openxlsx \
+    png \
     promises \ 
     RColorBrewer \ 
     scales \
