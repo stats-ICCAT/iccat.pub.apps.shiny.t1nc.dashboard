@@ -50,6 +50,7 @@ RUN R -e "install.packages(c('bslib', \
                              'mapplots', \
                              'maps', \
                              'openxlsx', \
+                             'png', \
                              'promises', \
                              'RColorBrewer', \
                              'Rcpp', \
