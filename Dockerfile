@@ -5,28 +5,28 @@ WORKDIR /
 # Installs all required R packages (and their dependencies) starting from those hat are available on the remote repo
 # and then from the locally available libs (for the time being)
 RUN install2.r --error --skipinstalled \
-    stringr \
-    openxlsx \
     data.table \
-    shiny \
-    shinyjs \
-    shinyWidgets \
-    shinycssloaders \
-    DT \
     devtools \
     dplyr \ 
+    DT \
+    future \
+    ggnewscale \ 
+    ggthemes \ 
+    mapdata \ 
+    mapplots \ 
+    maps \
+    openxlsx \
+    promises \ 
     RColorBrewer \ 
     scales \
     scatterpie \
-    maps \
-    mapdata \ 
-    mapplots \ 
-    ggthemes \ 
-    ggnewscale \ 
     sf \ 
-    promises \ 
-    future
-
+    shiny \
+    shinycssloaders \
+    shinyjs \
+    shinyWidgets \
+    stringr
+    
 # Sets the working directory to the shiny-server root folder
 WORKDIR /srv/shiny-server
 
@@ -40,12 +40,12 @@ COPY ./build/shiny/shiny-server.conf /etc/shiny-server
 COPY ./update_libs.R .
 
 # External argument(s)
-ARG GITLAB_AUTH_TOKEN
+ARG GITHUB_AUTH_TOKEN
 
 # Environment variables
 
 ENV _R_SHLIB_STRIP_=true
-ENV GITLAB_AUTH_TOKEN=$GITLAB_AUTH_TOKEN
+ENV GITHUB_AUTH_TOKEN=$GITHUB_AUTH_TOKEN
 
 # Copies the entire structure of the Shiny app under a dedicated folder
 COPY ./shiny interactive_nc_dashboard
