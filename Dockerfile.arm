@@ -11,15 +11,15 @@ RUN apt-get -y install apt-utils
 # Required to build R package dependencies
 
 RUN apt-get -y install \
-  libharfbuzz-dev \
-  libfribidi-dev \
-  libgit2-dev \
   libfreetype6-dev \ 
+  libfribidi-dev \
+  libgdal-dev \
+  libgit2-dev \
+  libharfbuzz-dev \
+  libjpeg-dev \ 
   libpng-dev \ 
   libtiff5-dev \ 
-  libjpeg-dev \ 
-  libudunits2-dev \
-  libgdal-dev
+  libudunits2-dev
 
 WORKDIR /
 
@@ -55,7 +55,7 @@ RUN R -e "install.packages(c('bslib', \
                              'Rcpp', \
                              'remotes', \
                              'sass', \
-                             'scales',
+                             'scales', \
                              'scatterpie', \
                              'sf', \
                              'shiny', \
