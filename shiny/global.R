@@ -16,8 +16,8 @@ library(dplyr)
 
 #library(plotly)
 
-library(promises)
-library(future)
+#library(promises)
+#library(future)
 
 plan(multisession)
 

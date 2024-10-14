@@ -259,18 +259,18 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise({
+      #future_promise({
         plot_bar_species(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   output$bySpeciesRel = 
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise({
+      #future_promise({
         plot_bar_species(filtered_data, relative = TRUE)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   plot_bar_gear_groups = function(filtered_data, relative = FALSE) {
@@ -289,18 +289,18 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      #future_promise(packages = c("data.table"), {
         plot_bar_gear_groups(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   output$byGearGroupRel = 
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      #future_promise(packages = c("data.table"), {
         plot_bar_gear_groups(filtered_data, relative = TRUE)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   plot_bar_catch_types = function(filtered_data, relative = FALSE) {
@@ -316,18 +316,18 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      #future_promise(packages = c("data.table"), {
         plot_bar_catch_types(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   output$byCatchTypeRel = 
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table"), {
+      #future_promise(packages = c("data.table"), {
         plot_bar_catch_types(filtered_data, relative = TRUE)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   plot_bar_fishing_zones = function(filtered_data, relative = FALSE) {
@@ -360,18 +360,18 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise({
+      #future_promise({
         plot_bar_fishing_zones(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   output$byFishingZoneRel =
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise({
+      #future_promise({
         plot_bar_fishing_zones(filtered_data, relative = TRUE)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   plot_bar_stocks = function(filtered_data, relative = FALSE) {
@@ -387,18 +387,18 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table", "scales", "colorspace"), {
+      #future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_stocks(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   output$byStockRel = 
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table", "scales", "colorspace"), {
+      #future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_stocks(filtered_data, relative = TRUE)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   plot_bar_sampling_areas = function(filtered_data, relative = FALSE) {
@@ -414,18 +414,18 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table", "scales", "colorspace"), {
+      #future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_sampling_areas(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   output$bySamplingRel = 
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("data.table", "scales", "colorspace"), {
+      #future_promise(packages = c("data.table", "scales", "colorspace"), {
         plot_bar_sampling_areas(filtered_data, relative = TRUE)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   pareto_by_fleet_gear = function(filtered_data) {
@@ -441,9 +441,9 @@ server = function(input, output, session) {
     renderPlot({        
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("iccat.pub.data", "scales", "colorspace"), {
+      #future_promise(packages = c("iccat.pub.data", "scales", "colorspace"), {
         pareto_by_fleet_gear(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   pareto_by_sampling_gear = function(filtered_data) {
@@ -463,9 +463,9 @@ server = function(input, output, session) {
     renderPlot({        
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise(packages = c("iccat.pub.data", "scales", "colorspace"), {
+      #future_promise(packages = c("iccat.pub.data", "scales", "colorspace"), {
         pareto_by_sampling_gear(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   map_by_sampling_area = function(filtered_data) {
@@ -481,9 +481,9 @@ server = function(input, output, session) {
     renderPlot({
       filtered_data = validate_filtering(default_filter_data(NC_raw, input))
       
-      future_promise({
+      #future_promise({
         map_by_sampling_area(filtered_data)
-      }) %...>% { . }
+      #}) %...>% { . }
     })
   
   output$tabularData = 
