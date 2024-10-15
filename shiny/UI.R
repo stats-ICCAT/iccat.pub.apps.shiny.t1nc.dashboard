@@ -17,8 +17,7 @@ ui = function() {
         ),
         tags$div(
           fluidRow(
-            column(
-              width = 8,
+            column(width = 8,
               h2(
                 style = "margin-top: 5px !important",
                 img(src = "iccat-logo.jpg", height = "48px"),
@@ -27,11 +26,9 @@ ui = function() {
             )
           ),
           fluidRow(
-            column(
-              width = 2,
+            column(width = 2,
               fluidRow(
-                column(
-                  width = 12,
+                column(width = 12,
                   sliderInput("years", 
                     "Year range",
                     width = "100%",
@@ -43,8 +40,7 @@ ui = function() {
                 )
               ),
               fluidRow(
-                column(
-                  width = 12,
+                column(width = 12,
                   tabsetPanel(
                     tabPanel("Main filters", icon = icon("filter"),
                       style = "padding-top: 1em",
