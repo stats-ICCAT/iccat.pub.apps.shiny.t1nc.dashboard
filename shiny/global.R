@@ -40,7 +40,7 @@ ALL_FLEETS         = setNames(as.character(REF_FLEETS$CODE),         paste0(REF_
 ALL_GEAR_GROUPS    = setNames(as.character(REF_GEAR_GROUPS$CODE),    paste0(REF_GEAR_GROUPS$CODE,    " - ", REF_GEAR_GROUPS$NAME_EN))
 ALL_GEARS          = setNames(as.character(REF_GEARS$CODE),          paste0(REF_GEARS$CODE,          " - ", REF_GEARS$NAME_EN))
 
-ALL_STOCK_AREAS    = setNames(as.character(REF_STOCK_AREAS$CODE),    paste0(REF_STOCK_AREAS$CODE,    " - ", REF_STOCK_AREAS$NAME_EN))
+ALL_STOCK_AREAS    = setNames(as.character(REF_STOCK_AREAS_SIMPLIFIED$CODE), paste0(REF_STOCK_AREAS_SIMPLIFIED$CODE, " - ", REF_STOCK_AREAS_SIMPLIFIED$NAME_EN))
 
 SAMPLING_AREAS_UNK = data.table(CODE = "unkn", NAME_EN = "Unknown")
 SAMPLING_AREAS_ALB = REF_SAMPLING_AREAS[str_sub(CODE, 1, 2) == "AL"]
