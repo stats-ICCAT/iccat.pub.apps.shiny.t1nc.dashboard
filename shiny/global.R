@@ -19,7 +19,7 @@ library(dplyr)
 #library(promises)
 #library(future)
 
-plan(multisession)
+#plan(multisession)
 
 options(scipen = 9999)
 

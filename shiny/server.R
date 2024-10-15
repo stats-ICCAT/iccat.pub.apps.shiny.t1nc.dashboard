@@ -132,7 +132,7 @@ server = function(input, output, session) {
     
     DATA_GEO = DATA_GEO[!is.na(GEO_CODE) & GEO_CODE != "unkn", .(CATCH = sum(Qty_t, na.rm = TRUE)), keyby = .(GEO_CODE)]
     
-    DATA_GEO = merge(DATA_GEO, STOCK_AND_SAMPLING_AREAS_RAW_GEOMETRIES,
+    DATA_GEO = merge(DATA_GEO, iccat.pub.maps::STOCK_AND_SAMPLING_AREAS_RAW_GEOMETRIES,
                      by.x = "GEO_CODE", by.y = "CODE",
                      all.x = TRUE, all.y = FALSE)
     
@@ -234,22 +234,30 @@ server = function(input, output, session) {
       species_codes = sort(unique(filtered_data$Species))
       
       SPECIES_COLORS = data.table(CODE = species_codes)
-      SPECIES_COLORS$FILL = hue_pal()(nrow(SPECIES_COLORS))
+      SPECIES_COLORS$FILL = colorRampPalette(brewer.pal(n = 12, name = "Paired"))(length(species_codes))
       SPECIES_COLORS[, COLOR := darken(FILL, amount = .3)]
+      
+      SPECIES_COLORS = rbind(SPECIES_COLORS,
+                             data.table(CODE = "Other species", FILL = "#000000", COLOR = "#000000"))
       
       return(
         iccat.pub.plots::t1nc.plot.bar(
           filtered_data,
           category_column = "Species",
+          max_categories = 25,
+          other_category_label = "Other species",
           colors = SPECIES_COLORS,
+          legend_title = "Species",
           relative = relative
         ) + 
+          
         guides(
           fill =
             guide_legend(
               title = "Species"
             )
         ) + 
+          
         labs(title = "Annual catches by species")
       )
     }
@@ -276,7 +284,7 @@ server = function(input, output, session) {
   plot_bar_gear_groups = function(filtered_data, relative = FALSE) {
     if(nrow(filtered_data) > 0) {
       return(
-        iccat.pub.plots::t1nc.plot.bar_gears(
+        iccat.pub.plots::t1nc.plot.bar_gear_groups(
           filtered_data,
           relative = relative
         ) + 
@@ -343,6 +351,7 @@ server = function(input, output, session) {
           filtered_data,
           category_column = "FishingZone",
           colors = FISHING_ZONES_COLORS,
+          legend_title = "Fishing zone",
           relative = relative
         ) + 
           guides(
@@ -404,7 +413,7 @@ server = function(input, output, session) {
   plot_bar_sampling_areas = function(filtered_data, relative = FALSE) {
     if(nrow(filtered_data) > 0) {
       return(
-        iccat.pub.plots::t1nc.plot.bar_sampling_areas(filtered_data, relative = relative) + 
+        iccat.pub.plots::t1nc.plot.bar_sampling_areas(filtered_data, relative = relative, max_categories = 16) + 
           labs(title = "Annual catches by sampling area")
       )
     }

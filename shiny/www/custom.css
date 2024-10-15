@@ -59,7 +59,8 @@
 
 /* LAYOUT ETC. */
 
-.nav-tabs li {
+.nav-tabs li,
+.nav-pills li {
     min-width: 128px;
     text-align: center;
 }
